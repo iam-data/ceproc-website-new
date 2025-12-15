@@ -1,0 +1,32 @@
+{
+  "pillars": [
+    {
+      "number": "1",
+      "icon": "🎯",
+      "title": "Global Advocacy",
+      "description": "Your voice in Ottawa and on the global stage. We lobby on behalf of Canadian exporters to reduce trade barriers and safeguard fair market access.",
+      "color": "orange"
+    },
+    {
+      "number": "2",
+      "icon": "📋",
+      "title": "Trade Policy & Compliance",
+      "description": "Navigate complexity with certainty. Expert analysis on CETA, CUSMA, CPTPP, customs modernization, and compliance standards.",
+      "color": "blue"
+    },
+    {
+      "number": "3",
+      "icon": "🤝",
+      "title": "Verified Connectivity",
+      "description": "We facilitate B2B introductions between verified Canadian producers and pre-qualified international buyers.",
+      "color": "blue"
+    },
+    {
+      "number": "4",
+      "icon": "📊",
+      "title": "Strategic Market Making",
+      "description": "Leveraging proprietary market intelligence to identify high-growth export regions for profitable market entry.",
+      "color": "orange"
+    }
+  ]
+}
