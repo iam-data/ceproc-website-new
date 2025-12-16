@@ -1,0 +1,58 @@
+---
+const navItems = [
+  { name: 'Our Solutions', href: '/solutions' },
+  { name: 'Markets & Insights', href: '/insights' },
+  { name: 'Events & Missions', href: '/events' },
+  { name: 'About Us', href: '/about' },
+];
+---
+
+<nav class="sticky top-0 z-50 bg-slate-900 border-b border-slate-800 shadow-xl backdrop-blur-sm bg-opacity-95">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex h-20 items-center justify-between">
+      <!-- Logo -->
+      <div class="flex items-center">
+        <a href="/" class="flex items-center transition-transform hover:scale-105">
+          <img 
+            src="/ceproc-logo.png" 
+            alt="CEPROC - Export Promotion Council" 
+            class="h-14 w-auto object-contain"
+          />
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex md:items-center md:space-x-1">
+        <a href="/solutions" class="px-4 py-2 text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800 rounded-lg transition-all">
+          Our Solutions
+        </a>
+        <a href="/insights" class="px-4 py-2 text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800 rounded-lg transition-all">
+          Markets & Insights
+        </a>
+        <a href="/events" class="px-4 py-2 text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800 rounded-lg transition-all">
+          Events & Missions
+        </a>
+        <a href="/about" class="px-4 py-2 text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800 rounded-lg transition-all">
+          About Us
+        </a>
+      </div>
+
+      <!-- CTA Button -->
+      <div class="hidden md:block">
+        <a href="/solutions" class="inline-flex items-center rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 hover:scale-105 transition-all">
+          Get Started
+          <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button type="button" class="md:hidden rounded-md p-2 text-slate-300 hover:bg-slate-800 hover:text-cyan-400 transition-all">
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>

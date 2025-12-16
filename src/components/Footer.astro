@@ -1,0 +1,142 @@
+---
+const footerLinks = {
+  solutions: [
+    { name: 'For Explorers', href: '/solutions#explorer' },
+    { name: 'For Operators', href: '/solutions#operator' },
+    { name: 'For Expediters', href: '/solutions#expediter' },
+    { name: 'Find Your Solution', href: '/solutions' }
+  ],
+  resources: [
+    { name: 'Markets & Insights', href: '/insights' },
+    { name: 'Trade Missions', href: '/events' },
+    { name: 'Policy & Regulations', href: '/about#policy' },
+    { name: 'Data Services', href: '/insights#data' }
+  ],
+  company: [
+    { name: 'About CEPROC', href: '/about' },
+    { name: 'Our Partners', href: '/about#partners' },
+    { name: 'Newsroom', href: '/about#news' },
+    { name: 'Careers', href: '/about#careers' }
+  ],
+  legal: [
+    { name: 'Privacy Policy', href: '/privacy' },
+    { name: 'Accessibility', href: '/accessibility' },
+    { name: 'Contact Us', href: '/contact' }
+  ]
+};
+---
+
+<footer class="bg-gray-900 text-gray-300">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid gap-12 lg:grid-cols-5">
+      <!-- Brand Column -->
+      <div class="lg:col-span-2 space-y-6">
+        <div class="flex items-center space-x-3">
+          <img 
+            src="/ceproc-logo.png" 
+            alt="CEPROC" 
+            class="h-12 w-auto brightness-0 invert"
+          />
+        </div>
+        <p class="text-gray-400 leading-relaxed">
+          Your strategic partner in achieving Canada's goal of 50% more overseas exports by 2025. Unified trade expertise, financing, and global market access.
+        </p>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-white transition-colors">
+            <span class="sr-only">LinkedIn</span>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-1.343-3.696-2.603-3.696-1.267 0-2.397 1.028-2.397 2.5v6.8h-3v-11h3v1.765c.66-1.36 2.06-2.265 3.5-2.265 3.018 0 4.5 1.988 4.5 6v5.5z"/>
+            </svg>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors">
+            <span class="sr-only">Twitter</span>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Solutions -->
+      <div>
+        <h3 class="text-white font-semibold mb-4">Solutions</h3>
+        <ul class="space-y-3">
+          {footerLinks.solutions.map((link) => (
+            <li>
+              <a href={link.href} class="text-sm hover:text-white transition-colors">
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Resources -->
+      <div>
+        <h3 class="text-white font-semibold mb-4">Resources</h3>
+        <ul class="space-y-3">
+          {footerLinks.resources.map((link) => (
+            <li>
+              <a href={link.href} class="text-sm hover:text-white transition-colors">
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Company & Legal -->
+      <div>
+        <h3 class="text-white font-semibold mb-4">Company</h3>
+        <ul class="space-y-3 mb-6">
+          {footerLinks.company.map((link) => (
+            <li>
+              <a href={link.href} class="text-sm hover:text-white transition-colors">
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <h3 class="text-white font-semibold mb-4">Legal</h3>
+        <ul class="space-y-3">
+          {footerLinks.legal.map((link) => (
+            <li>
+              <a href={link.href} class="text-sm hover:text-white transition-colors">
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Partner Logos -->
+    <div class="mt-12 pt-8 border-t border-gray-800">
+      <p class="text-sm text-gray-400 mb-6">Official Partners:</p>
+      <div class="flex flex-wrap gap-8 items-center">
+        <a href="https://www.tradecommissioner.gc.ca/" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 text-gray-400 hover:text-cyan-400 transition-colors group">
+          <div class="h-10 w-10 rounded bg-gray-800 flex items-center justify-center font-bold group-hover:bg-gray-700 transition-colors">TCS</div>
+          <span class="text-sm">Trade Commissioner Service</span>
+        </a>
+        <a href="https://www.edc.ca/" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 text-gray-400 hover:text-blue-400 transition-colors group">
+          <div class="h-10 w-10 rounded bg-gray-800 flex items-center justify-center font-bold group-hover:bg-gray-700 transition-colors">EDC</div>
+          <span class="text-sm">Export Development Canada</span>
+        </a>
+        <a href="https://www.international.gc.ca/" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 text-gray-400 hover:text-purple-400 transition-colors group">
+          <div class="h-10 w-10 rounded bg-gray-800 flex items-center justify-center font-bold group-hover:bg-gray-700 transition-colors">GAC</div>
+          <span class="text-sm">Global Affairs Canada</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="mt-12 pt-8 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center">
+      <p class="text-sm text-gray-400">
+        © 2025 Canadian Export Promotion Council. All rights reserved.
+      </p>
+      <p class="text-sm text-gray-400 mt-4 sm:mt-0">
+        Driving Canada's 2025 Export Goal
+      </p>
+    </div>
+  </div>
+</footer>
