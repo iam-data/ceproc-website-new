@@ -1,30 +1,4 @@
 ---
-const stages = [
-  {
-    stage: 'Explorer',
-    title: 'Thinking Global?',
-    subtitle: 'Take your first step toward international sales',
-    description: 'Get foundational support, export advisory services, and market information to start your global journey.',
-    cta: 'Start Your Export Plan',
-    link: '/solutions#explorer'
-  },
-  {
-    stage: 'Operator',
-    title: 'Ready to Diversify?',
-    subtitle: 'Protect and optimize your operations',
-    description: 'Access credit insurance, working capital guarantees, and resources to navigate trade challenges.',
-    cta: 'Secure Financing & Insurance',
-    link: '/solutions#operator'
-  },
-  {
-    stage: 'Expediter',
-    title: 'Scaling Success?',
-    subtitle: 'Expand into new markets faster',
-    description: 'Strategic advice, high-value B2B connections, direct lending, and priority access to trade missions.',
-    cta: 'Connect to Global Opportunities',
-    link: '/solutions#expediter'
-  }
-];
 ---
 
 <section class="py-24 bg-gradient-to-b from-slate-50 to-white">
@@ -132,7 +106,7 @@ const stages = [
           Receive timely market analysis, expert economic outlooks, and priority notifications for trade missions and funding programs.
         </p>
         <form 
-          action="https://formspree.io/f/mjkjkyvl" 
+          action="https://formspree.io/f/xzznlkog" 
           method="POST"
           class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto"
         >
@@ -144,13 +118,21 @@ const stages = [
             class="flex-1 rounded-xl px-6 py-4 text-slate-900 bg-white focus:outline-none focus:ring-4 focus:ring-cyan-500/50 shadow-lg" 
           />
           
-          <input type="hidden" name="_next" value="http://localhost:4321/thank-you" />
-          <input type="hidden" name="_subject" value="New CEPROC Newsletter Subscription" />
+          <!-- Honeypot for spam protection -->
+          <input 
+            type="text" 
+            name="_gotcha" 
+            style="display:none"
+            tabindex="-1"
+            autocomplete="off"
+          />
           
-          <button 
-            type="submit" 
-            class="rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 font-semibold text-white hover:shadow-2xl hover:scale-105 transition-all shadow-lg whitespace-nowrap"
-          >
+          <!-- Hidden fields -->
+          <input type="hidden" name="_subject" value="New CEPROC Newsletter Subscription" />
+          <input type="hidden" name="_next" value="/thank-you" />
+          <input type="hidden" name="_captcha" value="false" />
+          
+          <button type="submit" class="rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 font-semibold text-white hover:shadow-2xl hover:scale-105 transition-all shadow-lg">
             Subscribe
           </button>
         </form>
