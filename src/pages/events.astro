@@ -1,0 +1,238 @@
+---
+import Layout from '../layouts/Layout.astro';
+import organizersData from '../data/event-organizers.json';
+
+const organizers = organizersData.organizers;
+---
+
+<Layout title="Export Events & Trade Missions - CEPROC">
+  <section class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-32 pb-20">
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute -top-40 -right-40 w-80 h-80 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+      <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+    </div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto">
+        <div class="inline-flex items-center rounded-full bg-cyan-500/10 border border-cyan-500/30 px-4 py-2 text-sm font-semibold text-cyan-400 mb-6">
+          <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          Events & Trade Missions Directory
+        </div>
+        <h1 class="text-5xl font-bold text-white mb-6 lg:text-6xl">Export Events Calendar</h1>
+        <p class="text-xl text-slate-300 mb-8">Access official event calendars from leading trade organizations across North America</p>
+        
+        <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-6 mb-8">
+          <div class="flex items-start gap-3">
+            <svg class="h-6 w-6 text-amber-400 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div class="text-left">
+              <h3 class="text-lg font-bold text-amber-300 mb-2">Direct Access to Official Event Calendars</h3>
+              <p class="text-amber-200 text-sm">We provide links to official event calendars maintained by trusted trade organizations. All event details, registration, and dates are managed directly by the organizers to ensure accuracy.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-6 max-w-2xl mx-auto">
+          <div class="bg-slate-800/50 backdrop-blur rounded-2xl p-4 border border-slate-700">
+            <div class="text-3xl font-bold text-cyan-400">{organizers.length}</div>
+            <div class="text-sm text-slate-400">Organizations</div>
+          </div>
+          <div class="bg-slate-800/50 backdrop-blur rounded-2xl p-4 border border-slate-700">
+            <div class="text-3xl font-bold text-blue-400">100+</div>
+            <div class="text-sm text-slate-400">Annual Events</div>
+          </div>
+          <div class="bg-slate-800/50 backdrop-blur rounded-2xl p-4 border border-slate-700">
+            <div class="text-3xl font-bold text-purple-400">2</div>
+            <div class="text-sm text-slate-400">Countries</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-slate-900 mb-4">Official Event Sources</h2>
+        <p class="text-lg text-slate-600 max-w-2xl mx-auto">Browse upcoming events directly from leading export promotion organizations</p>
+      </div>
+
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {organizers.map(org => (
+          <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200 hover:shadow-2xl transition-all hover:scale-105 group">
+            <div class="relative h-48 bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
+              <div class="text-center">
+                <div class="text-white text-4xl font-bold mb-2">{org.shortName}</div>
+                <div class="text-cyan-100 text-sm font-semibold">{org.country}</div>
+              </div>
+              <div class="absolute top-4 right-4">
+                <span class="inline-flex items-center rounded-full bg-white/90 backdrop-blur px-3 py-1 text-xs font-semibold text-slate-900">
+                  Official Source
+                </span>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-cyan-600 transition-colors">{org.name}</h3>
+              <p class="text-sm text-slate-600 mb-4 line-clamp-2">{org.description}</p>
+              
+              <div class="space-y-2 mb-6">
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                  <svg class="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Official Event Calendar</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                  <svg class="h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Real-time Updates</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                  <svg class="h-4 w-4 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                  <span>Secure Registration</span>
+                </div>
+              </div>
+
+              <a 
+                href={org.website} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="inline-flex items-center justify-center w-full rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white hover:shadow-xl hover:scale-105 transition-all"
+              >
+                View {org.shortName} Events
+                <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-slate-50">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="bg-gradient-to-r from-cyan-600 to-blue-600 rounded-3xl p-12 text-center text-white">
+        <h2 class="text-3xl font-bold mb-4">Event Types You'll Find</h2>
+        <p class="text-cyan-100 mb-8 max-w-2xl mx-auto">These organizations offer various events to help Canadian exporters succeed globally</p>
+        
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4 text-left">
+          <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
+            <div class="text-3xl mb-3">🌍</div>
+            <h3 class="font-bold mb-2 text-lg">Trade Missions</h3>
+            <p class="text-sm text-cyan-100">Guided missions to explore international markets and connect with buyers</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
+            <div class="text-3xl mb-3">📚</div>
+            <h3 class="font-bold mb-2 text-lg">Training Workshops</h3>
+            <p class="text-sm text-cyan-100">Learn export skills, compliance requirements, and best practices</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
+            <div class="text-3xl mb-3">💰</div>
+            <h3 class="font-bold mb-2 text-lg">Finance Seminars</h3>
+            <p class="text-sm text-cyan-100">Discover export financing options and risk mitigation strategies</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
+            <div class="text-3xl mb-3">🤝</div>
+            <h3 class="font-bold mb-2 text-lg">Networking Events</h3>
+            <p class="text-sm text-cyan-100">Connect with buyers, partners, and trade professionals</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-slate-900 mb-4">Why Use Official Event Calendars?</h2>
+        <p class="text-slate-600 mb-8">Direct access to organizer websites ensures you get the most accurate and up-to-date information</p>
+        
+        <div class="grid gap-8 md:grid-cols-3 mt-12">
+          <div class="text-center">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 text-green-600 mb-4">
+              <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 class="font-bold text-slate-900 mb-2">Always Current</h3>
+            <p class="text-sm text-slate-600">Event details updated in real-time by organizers with latest information</p>
+          </div>
+          <div class="text-center">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 text-blue-600 mb-4">
+              <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <h3 class="font-bold text-slate-900 mb-2">Secure Registration</h3>
+            <p class="text-sm text-slate-600">Register directly through official channels with secure payment processing</p>
+          </div>
+          <div class="text-center">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-purple-100 text-purple-600 mb-4">
+              <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h3 class="font-bold text-slate-900 mb-2">Comprehensive Details</h3>
+            <p class="text-sm text-slate-600">Full event details including speakers, agenda, and venue information</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-gradient-to-br from-slate-900 to-slate-800">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-white mb-4">How to Use This Directory</h2>
+        <p class="text-slate-300 mb-8">Follow these simple steps to find and register for export events</p>
+        
+        <div class="grid gap-6 md:grid-cols-3 text-left">
+          <div class="bg-slate-800/50 backdrop-blur rounded-2xl p-6 border border-slate-700">
+            <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-cyan-500 text-white font-bold mb-4">1</div>
+            <h3 class="font-bold text-white mb-2">Browse Organizations</h3>
+            <p class="text-sm text-slate-400">Review the list of trusted trade organizations and their event offerings</p>
+          </div>
+          <div class="bg-slate-800/50 backdrop-blur rounded-2xl p-6 border border-slate-700">
+            <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-500 text-white font-bold mb-4">2</div>
+            <h3 class="font-bold text-white mb-2">Visit Official Calendar</h3>
+            <p class="text-sm text-slate-400">Click "View Events" to access the organization's official event calendar</p>
+          </div>
+          <div class="bg-slate-800/50 backdrop-blur rounded-2xl p-6 border border-slate-700">
+            <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-purple-500 text-white font-bold mb-4">3</div>
+            <h3 class="font-bold text-white mb-2">Register Directly</h3>
+            <p class="text-sm text-slate-400">Complete your registration through the organizer's secure registration system</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-slate-50">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-slate-200">
+        <div class="max-w-3xl mx-auto text-center">
+          <h2 class="text-3xl font-bold text-slate-900 mb-4">Need Help Finding Events?</h2>
+          <p class="text-lg text-slate-600 mb-8">Our team can help you identify the right events for your export goals</p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/contact" class="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 text-base font-semibold text-white hover:shadow-xl hover:scale-105 transition-all">
+              Contact Our Team
+              <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+            <a href="/services" class="inline-flex items-center justify-center rounded-xl bg-slate-100 px-8 py-4 text-base font-semibold text-slate-900 hover:bg-slate-200 transition-all">
+              View Our Services
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

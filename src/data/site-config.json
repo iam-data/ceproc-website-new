@@ -1,0 +1,72 @@
+{
+  "company": {
+    "name": "Canadian Export Promotion Council",
+    "shortName": "CEPROC.CA",
+    "tagline": "Driving Canada's Export Growth"
+  },
+  "address": {
+    "street": "1117 Fair Birch Dr",
+    "city": "Mississauga",
+    "province": "ON",
+    "postalCode": "L5J 4M9",
+    "country": "Canada",
+    "full": "1117 Fair Birch Dr, Mississauga, ON L5J 4M9, Canada"
+  },
+  "phone": {
+    "main": "+1 (647) 292-6514",
+    "mainRaw": "+16472926514",
+    "tollfree": "1-800-XXX-XXXX",
+    "tollfreeRaw": "18003334444"
+  },
+  "email": {
+    "general": "info@ceproc.ca",
+    "privacy": "privacy@ceproc.ca",
+    "legal": "legal@ceproc.ca",
+    "accessibility": "accessibility@ceproc.ca",
+    "support": "support@ceproc.ca"
+  },
+  "social": {
+    "linkedin": "https://linkedin.com/company/ceproc",
+    "twitter": "https://twitter.com/ceproc"
+  },
+  "departments": {
+    "privacy": {
+      "name": "Digital Compliance Department",
+      "title": "Privacy Officer",
+      "email": "privacy@ceproc.ca"
+    },
+    "legal": {
+      "name": "Digital Compliance Department",
+      "title": "Legal Department",
+      "email": "legal@ceproc.ca"
+    },
+    "accessibility": {
+      "name": "Digital Compliance Team",
+      "title": "Digital Compliance Officer",
+      "email": "accessibility@ceproc.ca"
+    }
+  },
+  "officeHours": {
+    "weekday": {
+      "days": "Monday - Friday",
+      "hours": "9:00 AM - 6:00 PM EST"
+    },
+    "saturday": {
+      "days": "Saturday",
+      "hours": "10:00 AM - 2:00 PM EST"
+    },
+    "sunday": {
+      "days": "Sunday",
+      "hours": "Closed"
+    }
+  },
+  "events": {
+    "dateRange": {
+      "startYear": 2025,
+      "endYear": 2026,
+      "defaultStartDate": "2025-01-01",
+      "defaultEndDate": "2026-12-31"
+    },
+    "upcomingDaysThreshold": 60
+  }
+}
