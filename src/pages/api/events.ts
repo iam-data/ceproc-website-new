@@ -46,7 +46,7 @@ const eventOrganizers: EventOrganizer[] = [
     id: "bdc",
     name: "Business Development Bank of Canada",
     website: "https://www.bdc.ca",
-    eventsUrl: "https://www.bdc.ca/en/articles-tools/events"
+    eventsUrl: "https://www.bdc.ca/en/articles-tools/entrepreneur-toolkit/webinars"
   },
   {
     id: "world-trade-centre-toronto",

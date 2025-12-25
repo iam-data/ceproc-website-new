@@ -1,7 +1,7 @@
 // src/pages/api/events.json.ts
 // EXPANDED VERSION - Canadian + US Events with Analytics
 
-export const prerender = false;
+export const prerender = false; // Makes just the API server-side
 
 interface Event {
   id: string;
