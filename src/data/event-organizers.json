@@ -1,158 +1,59 @@
-{
-  "organizers": [
-    {
-      "id": "tcs-canada",
-      "name": "Trade Commissioner Service",
-      "country": "Canada",
-      "shortName": "TCS",
-      "website": "https://www.tradecommissioner.gc.ca",
-      "eventsUrl": "https://www.tradecommissioner.gc.ca/trade-missions-delegations-commerciales.aspx",
-      "type": "government",
-      "logo": "/logos/tcs.png",
-      "description": "Canada's global network supporting Canadian exporters"
-    },
-    {
-      "id": "edc-canada",
-      "name": "Export Development Canada",
-      "country": "Canada",
-      "shortName": "EDC",
-      "website": "https://www.edc.ca",
-      "eventsUrl": "https://www.edc.ca/en/events.html",
-      "type": "crown-corporation",
-      "logo": "/logos/edc.png",
-      "description": "Canada's export credit agency providing financing and insurance"
-    },
-    {
-      "id": "fitt-canada",
-      "name": "Forum for International Trade Training",
-      "country": "Canada",
-      "shortName": "FITT",
-      "website": "https://www.fitt.ca",
-      "eventsUrl": "https://www.fitt.ca/events",
-      "type": "training",
-      "logo": "/logos/fitt.png",
-      "description": "International trade training and certification"
-    },
-    {
-      "id": "ie-canada",
-      "name": "i.E. Canada",
-      "country": "Canada",
-      "shortName": "i.E. Canada",
-      "website": "https://www.iecanada.com",
-      "eventsUrl": "https://www.iecanada.com/events",
-      "type": "association",
-      "logo": "/logos/iecanada.png",
-      "description": "Leading import/export association in Canada"
-    },
-    {
-      "id": "gac-canada",
-      "name": "Global Affairs Canada",
-      "country": "Canada",
-      "shortName": "GAC",
-      "website": "https://www.international.gc.ca",
-      "eventsUrl": "https://www.international.gc.ca/global-affairs-affaires-mondiales/home-accueil.aspx",
-      "type": "government",
-      "logo": "/logos/gac.png",
-      "description": "Canada's foreign affairs and international trade department"
-    },
-    {
-      "id": "ita-us",
-      "name": "International Trade Administration",
-      "country": "USA",
-      "shortName": "ITA",
-      "website": "https://www.trade.gov",
-      "eventsUrl": "https://www.trade.gov/events",
-      "type": "government",
-      "logo": "/logos/ita.png",
-      "description": "U.S. Department of Commerce trade promotion agency"
-    },
-    {
-      "id": "exim-us",
-      "name": "Export-Import Bank of the United States",
-      "country": "USA",
-      "shortName": "EXIM",
-      "website": "https://www.exim.gov",
-      "eventsUrl": "https://www.exim.gov/news/events",
-      "type": "government",
-      "logo": "/logos/exim.png",
-      "description": "Official export credit agency of the United States"
-    },
-    {
-      "id": "ftr-us",
-      "name": "Foreign Trade Regulations",
-      "country": "USA",
-      "shortName": "FTR",
-      "website": "https://www.bis.doc.gov",
-      "eventsUrl": "https://www.bis.doc.gov/index.php/events",
-      "type": "regulatory",
-      "logo": "/logos/ftr.png",
-      "description": "U.S. export compliance regulations"
-    },
-    {
-      "id": "bis-us",
-      "name": "Bureau of Industry and Security",
-      "country": "USA",
-      "shortName": "BIS",
-      "website": "https://www.bis.doc.gov",
-      "eventsUrl": "https://www.bis.doc.gov/index.php/events",
-      "type": "regulatory",
-      "logo": "/logos/bis.png",
-      "description": "U.S. export control and enforcement"
-    },
-    {
-      "id": "fda-us",
-      "name": "U.S. Food and Drug Administration",
-      "country": "USA",
-      "shortName": "FDA",
-      "website": "https://www.fda.gov",
-      "eventsUrl": "https://www.fda.gov/news-events/fda-meetings-conferences-and-workshops",
-      "type": "regulatory",
-      "logo": "/logos/fda.png",
-      "description": "U.S. food and drug regulatory agency"
-    },
-    {
-      "id": "cbp-us",
-      "name": "U.S. Customs and Border Protection",
-      "country": "USA",
-      "shortName": "CBP",
-      "website": "https://www.cbp.gov",
-      "eventsUrl": "https://www.cbp.gov/newsroom/events",
-      "type": "regulatory",
-      "logo": "/logos/cbp.png",
-      "description": "U.S. customs and border enforcement"
-    },
-    {
-      "id": "sba-us",
-      "name": "U.S. Small Business Administration",
-      "country": "USA",
-      "shortName": "SBA",
-      "website": "https://www.sba.gov",
-      "eventsUrl": "https://www.sba.gov/events",
-      "type": "government",
-      "logo": "/logos/sba.png",
-      "description": "Supporting American small business exporters"
-    },
-    {
-      "id": "nasbite",
-      "name": "NASBITE International",
-      "country": "USA",
-      "shortName": "NASBITE",
-      "website": "https://www.nasbite.org",
-      "eventsUrl": "https://www.nasbite.org/events",
-      "type": "association",
-      "logo": "/logos/nasbite.png",
-      "description": "International trade professional certification"
-    },
-    {
-      "id": "wita",
-      "name": "Washington International Trade Association",
-      "country": "USA",
-      "shortName": "WITA",
-      "website": "https://www.wita.org",
-      "eventsUrl": "https://www.wita.org/events",
-      "type": "association",
-      "logo": "/logos/wita.png",
-      "description": "Leading U.S. international trade policy forum"
-    }
-  ]
-}
+[
+  {
+    "id": "edc",
+    "name": "Export Development Canada",
+    "website": "https://www.edc.ca",
+    "eventsUrl": "https://www.edc.ca/en/events.html",
+    "description": "Canada's export credit agency providing financial services to Canadian exporters"
+  },
+  {
+    "id": "bdc",
+    "name": "Business Development Bank of Canada",
+    "website": "https://www.bdc.ca",
+    "eventsUrl": "https://www.bdc.ca/en/articles-tools/entrepreneur-toolkit/webinars",
+    "description": "Free webinars for Canadian entrepreneurs on business strategy, finance, and growth",
+    "skipScraping": true
+  },
+  {
+    "id": "tfo-canada",
+    "name": "Trade Facilitation Office Canada",
+    "website": "https://www.tfocanada.ca",
+    "eventsUrl": "https://www.tfocanada.ca/events",
+    "description": "Helps developing country exporters access Canadian and international markets"
+  },
+  {
+    "id": "world-trade-centre-toronto",
+    "name": "World Trade Centre Toronto",
+    "website": "https://www.wtctoronto.com",
+    "eventsUrl": "https://www.wtctoronto.com/events",
+    "description": "Connecting Canadian businesses to global markets"
+  },
+  {
+    "id": "trade-commissioner-service",
+    "name": "Canadian Trade Commissioner Service",
+    "website": "https://www.tradecommissioner.gc.ca",
+    "eventsUrl": "https://www.tradecommissioner.gc.ca/events",
+    "description": "Government of Canada's international business development service"
+  },
+  {
+    "id": "fitt",
+    "name": "Forum for International Trade Training",
+    "website": "https://www.fitt.ca",
+    "eventsUrl": "https://www.fitt.ca/events",
+    "description": "International trade training and certification"
+  },
+  {
+    "id": "cme",
+    "name": "Canadian Manufacturers & Exporters",
+    "website": "https://cme-mec.ca",
+    "eventsUrl": "https://cme-mec.ca/events/",
+    "description": "Canada's largest trade and industry association"
+  },
+  {
+    "id": "canadian-chamber",
+    "name": "Canadian Chamber of Commerce",
+    "website": "https://www.chamber.ca",
+    "eventsUrl": "https://www.chamber.ca/events/",
+    "description": "National voice of Canadian business"
+  }
+]

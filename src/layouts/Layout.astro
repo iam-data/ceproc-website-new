@@ -9,6 +9,7 @@ interface Props {
 }
 
 const { title, description = "CEPROC - Canadian Export Promotion Council." } = Astro.props;
+const GA_MEASUREMENT_ID = 'G-79C21F0R4E'; // Your GA ID
 ---
 
 <!DOCTYPE html>
@@ -28,3 +29,12 @@ const { title, description = "CEPROC - Canadian Export Promotion Council." } = A
   <Footer />
 </body>
 </html>
+
+<!-- Google Analytics -->
+<script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}></script>
+<script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', GA_MEASUREMENT_ID);
+</script>

@@ -1,238 +1,392 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import organizersData from '../data/event-organizers.json';
+// src/pages/events.astro
+// EXPANDED - Canadian + US Events with Analytics
 
-const organizers = organizersData.organizers;
+import Layout from '../layouts/Layout.astro';
+
+const pageTitle = 'International Business Events';
+const pageDescription = 'Discover export opportunities, trade missions, webinars, and networking events from Canada and the United States';
 ---
 
-<Layout title="Export Events & Trade Missions - CEPROC">
-  <section class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-32 pb-20">
-    <div class="absolute inset-0 overflow-hidden">
-      <div class="absolute -top-40 -right-40 w-80 h-80 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
-      <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
-    </div>
-    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto">
-        <div class="inline-flex items-center rounded-full bg-cyan-500/10 border border-cyan-500/30 px-4 py-2 text-sm font-semibold text-cyan-400 mb-6">
-          <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-          Events & Trade Missions Directory
-        </div>
-        <h1 class="text-5xl font-bold text-white mb-6 lg:text-6xl">Export Events Calendar</h1>
-        <p class="text-xl text-slate-300 mb-8">Access official event calendars from leading trade organizations across North America</p>
-        
-        <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-6 mb-8">
-          <div class="flex items-start gap-3">
-            <svg class="h-6 w-6 text-amber-400 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <div class="text-left">
-              <h3 class="text-lg font-bold text-amber-300 mb-2">Direct Access to Official Event Calendars</h3>
-              <p class="text-amber-200 text-sm">We provide links to official event calendars maintained by trusted trade organizations. All event details, registration, and dates are managed directly by the organizers to ensure accuracy.</p>
-            </div>
+<Layout title={pageTitle} description={pageDescription}>
+  <div class="min-h-screen bg-gray-50">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center">
+          <h1 class="text-4xl md:text-5xl font-bold mb-4">
+            International Business Events
+          </h1>
+          <p class="text-xl text-blue-100 mb-8">
+            Discover export opportunities, trade missions, webinars, and networking events from Canada and the United States
+          </p>
+          
+          <!-- Country Tabs -->
+          <div class="flex justify-center gap-4 mb-8">
+            <button 
+              id="tab-all"
+              class="country-tab px-6 py-3 bg-white text-blue-900 rounded-lg font-semibold transition-all active"
+              data-country="all"
+            >
+              🌎 All Events
+            </button>
+            <button 
+              id="tab-ca"
+              class="country-tab px-6 py-3 bg-blue-800 hover:bg-blue-700 rounded-lg font-semibold transition-all"
+              data-country="CA"
+            >
+              🍁 Canadian Events
+            </button>
+            <button 
+              id="tab-us"
+              class="country-tab px-6 py-3 bg-blue-800 hover:bg-blue-700 rounded-lg font-semibold transition-all"
+              data-country="US"
+            >
+              🇺🇸 U.S. Events
+            </button>
           </div>
-        </div>
-
-        <div class="grid grid-cols-3 gap-6 max-w-2xl mx-auto">
-          <div class="bg-slate-800/50 backdrop-blur rounded-2xl p-4 border border-slate-700">
-            <div class="text-3xl font-bold text-cyan-400">{organizers.length}</div>
-            <div class="text-sm text-slate-400">Organizations</div>
-          </div>
-          <div class="bg-slate-800/50 backdrop-blur rounded-2xl p-4 border border-slate-700">
-            <div class="text-3xl font-bold text-blue-400">100+</div>
-            <div class="text-sm text-slate-400">Annual Events</div>
-          </div>
-          <div class="bg-slate-800/50 backdrop-blur rounded-2xl p-4 border border-slate-700">
-            <div class="text-3xl font-bold text-purple-400">2</div>
-            <div class="text-sm text-slate-400">Countries</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="py-16 bg-white">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-slate-900 mb-4">Official Event Sources</h2>
-        <p class="text-lg text-slate-600 max-w-2xl mx-auto">Browse upcoming events directly from leading export promotion organizations</p>
-      </div>
-
-      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {organizers.map(org => (
-          <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200 hover:shadow-2xl transition-all hover:scale-105 group">
-            <div class="relative h-48 bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
-              <div class="text-center">
-                <div class="text-white text-4xl font-bold mb-2">{org.shortName}</div>
-                <div class="text-cyan-100 text-sm font-semibold">{org.country}</div>
+          
+          <!-- Search and Filters -->
+          <div class="bg-white rounded-lg shadow-lg p-6 text-gray-800">
+            <form id="event-search-form" class="space-y-4">
+              <div class="grid md:grid-cols-3 gap-4">
+                <input 
+                  type="text" 
+                  id="search-keyword"
+                  placeholder="Search events..." 
+                  class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                />
+                
+                <select 
+                  id="filter-organizer"
+                  class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="">All Organizations</option>
+                  <optgroup label="Canadian Organizations">
+                    <option value="edc">Export Development Canada</option>
+                    <option value="bdc">Business Development Bank of Canada</option>
+                    <option value="trade-commissioner-service">Trade Commissioner Service</option>
+                    <option value="fitt">FITT</option>
+                    <option value="cme">Canadian Manufacturers & Exporters</option>
+                    <option value="canadian-chamber">Canadian Chamber of Commerce</option>
+                    <option value="ontario-exports">Ontario Exports</option>
+                    <option value="naita">NAITA</option>
+                  </optgroup>
+                  <optgroup label="U.S. Organizations">
+                    <option value="us-commerce">U.S. Dept of Commerce</option>
+                    <option value="exim-bank">EXIM Bank</option>
+                    <option value="sba-international">SBA International Trade</option>
+                    <option value="nasbite">NASBITE International</option>
+                    <option value="us-chamber">U.S. Chamber of Commerce</option>
+                  </optgroup>
+                </select>
+                
+                <select 
+                  id="filter-timeframe"
+                  class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="upcoming">Upcoming Events</option>
+                  <option value="this-week">This Week</option>
+                  <option value="this-month">This Month</option>
+                  <option value="next-3-months">Next 3 Months</option>
+                </select>
               </div>
-              <div class="absolute top-4 right-4">
-                <span class="inline-flex items-center rounded-full bg-white/90 backdrop-blur px-3 py-1 text-xs font-semibold text-slate-900">
-                  Official Source
-                </span>
-              </div>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-cyan-600 transition-colors">{org.name}</h3>
-              <p class="text-sm text-slate-600 mb-4 line-clamp-2">{org.description}</p>
               
-              <div class="space-y-2 mb-6">
-                <div class="flex items-center gap-2 text-xs text-slate-500">
-                  <svg class="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span>Official Event Calendar</span>
-                </div>
-                <div class="flex items-center gap-2 text-xs text-slate-500">
-                  <svg class="h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span>Real-time Updates</span>
-                </div>
-                <div class="flex items-center gap-2 text-xs text-slate-500">
-                  <svg class="h-4 w-4 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                  </svg>
-                  <span>Secure Registration</span>
-                </div>
-              </div>
-
-              <a 
-                href={org.website} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                class="inline-flex items-center justify-center w-full rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white hover:shadow-xl hover:scale-105 transition-all"
+              <button 
+                type="submit"
+                class="w-full md:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
               >
-                View {org.shortName} Events
-                <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </a>
+                Search Events
+              </button>
+            </form>
+          </div>
+          
+          <!-- Stats Bar -->
+          <div id="stats-bar" class="mt-6 flex justify-center gap-8 text-sm text-blue-100">
+            <div>
+              <span class="font-bold" id="stat-total">0</span> Total Events
             </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="py-16 bg-slate-50">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="bg-gradient-to-r from-cyan-600 to-blue-600 rounded-3xl p-12 text-center text-white">
-        <h2 class="text-3xl font-bold mb-4">Event Types You'll Find</h2>
-        <p class="text-cyan-100 mb-8 max-w-2xl mx-auto">These organizations offer various events to help Canadian exporters succeed globally</p>
-        
-        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4 text-left">
-          <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
-            <div class="text-3xl mb-3">🌍</div>
-            <h3 class="font-bold mb-2 text-lg">Trade Missions</h3>
-            <p class="text-sm text-cyan-100">Guided missions to explore international markets and connect with buyers</p>
-          </div>
-          <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
-            <div class="text-3xl mb-3">📚</div>
-            <h3 class="font-bold mb-2 text-lg">Training Workshops</h3>
-            <p class="text-sm text-cyan-100">Learn export skills, compliance requirements, and best practices</p>
-          </div>
-          <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
-            <div class="text-3xl mb-3">💰</div>
-            <h3 class="font-bold mb-2 text-lg">Finance Seminars</h3>
-            <p class="text-sm text-cyan-100">Discover export financing options and risk mitigation strategies</p>
-          </div>
-          <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
-            <div class="text-3xl mb-3">🤝</div>
-            <h3 class="font-bold mb-2 text-lg">Networking Events</h3>
-            <p class="text-sm text-cyan-100">Connect with buyers, partners, and trade professionals</p>
+            <div>
+              🍁 <span class="font-bold" id="stat-ca">0</span> Canadian
+            </div>
+            <div>
+              🇺🇸 <span class="font-bold" id="stat-us">0</span> U.S.
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="py-16 bg-white">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-3xl font-bold text-slate-900 mb-4">Why Use Official Event Calendars?</h2>
-        <p class="text-slate-600 mb-8">Direct access to organizer websites ensures you get the most accurate and up-to-date information</p>
-        
-        <div class="grid gap-8 md:grid-cols-3 mt-12">
-          <div class="text-center">
-            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 text-green-600 mb-4">
-              <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h3 class="font-bold text-slate-900 mb-2">Always Current</h3>
-            <p class="text-sm text-slate-600">Event details updated in real-time by organizers with latest information</p>
-          </div>
-          <div class="text-center">
-            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 text-blue-600 mb-4">
-              <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
-            </div>
-            <h3 class="font-bold text-slate-900 mb-2">Secure Registration</h3>
-            <p class="text-sm text-slate-600">Register directly through official channels with secure payment processing</p>
-          </div>
-          <div class="text-center">
-            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-purple-100 text-purple-600 mb-4">
-              <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <h3 class="font-bold text-slate-900 mb-2">Comprehensive Details</h3>
-            <p class="text-sm text-slate-600">Full event details including speakers, agenda, and venue information</p>
-          </div>
-        </div>
-      </div>
+    <!-- Loading State -->
+    <div id="loading-state" class="container mx-auto px-4 py-12 text-center">
+      <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <p class="mt-4 text-gray-600">Loading events...</p>
     </div>
-  </section>
 
-  <section class="py-16 bg-gradient-to-br from-slate-900 to-slate-800">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-3xl font-bold text-white mb-4">How to Use This Directory</h2>
-        <p class="text-slate-300 mb-8">Follow these simple steps to find and register for export events</p>
-        
-        <div class="grid gap-6 md:grid-cols-3 text-left">
-          <div class="bg-slate-800/50 backdrop-blur rounded-2xl p-6 border border-slate-700">
-            <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-cyan-500 text-white font-bold mb-4">1</div>
-            <h3 class="font-bold text-white mb-2">Browse Organizations</h3>
-            <p class="text-sm text-slate-400">Review the list of trusted trade organizations and their event offerings</p>
-          </div>
-          <div class="bg-slate-800/50 backdrop-blur rounded-2xl p-6 border border-slate-700">
-            <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-500 text-white font-bold mb-4">2</div>
-            <h3 class="font-bold text-white mb-2">Visit Official Calendar</h3>
-            <p class="text-sm text-slate-400">Click "View Events" to access the organization's official event calendar</p>
-          </div>
-          <div class="bg-slate-800/50 backdrop-blur rounded-2xl p-6 border border-slate-700">
-            <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-purple-500 text-white font-bold mb-4">3</div>
-            <h3 class="font-bold text-white mb-2">Register Directly</h3>
-            <p class="text-sm text-slate-400">Complete your registration through the organizer's secure registration system</p>
-          </div>
-        </div>
+    <!-- Events List -->
+    <section class="container mx-auto px-4 py-12">
+      <div id="events-container" class="hidden space-y-6">
+        <!-- Events will be inserted here -->
       </div>
-    </div>
-  </section>
-
-  <section class="py-16 bg-slate-50">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-slate-200">
-        <div class="max-w-3xl mx-auto text-center">
-          <h2 class="text-3xl font-bold text-slate-900 mb-4">Need Help Finding Events?</h2>
-          <p class="text-lg text-slate-600 mb-8">Our team can help you identify the right events for your export goals</p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/contact" class="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 text-base font-semibold text-white hover:shadow-xl hover:scale-105 transition-all">
-              Contact Our Team
-              <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </a>
-            <a href="/services" class="inline-flex items-center justify-center rounded-xl bg-slate-100 px-8 py-4 text-base font-semibold text-slate-900 hover:bg-slate-200 transition-all">
-              View Our Services
-            </a>
-          </div>
-        </div>
+      
+      <!-- No Results -->
+      <div id="no-results" class="hidden text-center py-12">
+        <svg class="mx-auto h-24 w-24 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <h3 class="mt-4 text-xl font-semibold text-gray-700">No events found</h3>
+        <p class="mt-2 text-gray-500">Try adjusting your search or filters</p>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </Layout>
+
+<script>
+  let currentCountry = 'all';
+  
+  function createEventCard(event: any) {
+    const eventDate = new Date(event.startDate);
+    const formattedDate = eventDate.toLocaleDateString('en-CA', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    
+    const formattedTime = eventDate.toLocaleTimeString('en-CA', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
+    const isPlaceholder = event.isPlaceholder || false;
+    const cardClass = isPlaceholder 
+      ? 'bg-blue-50 border-2 border-blue-200' 
+      : 'bg-white border border-gray-200';
+    
+    const countryFlag = event.country === 'CA' ? '🍁' : event.country === 'US' ? '🇺🇸' : '🌎';
+    const countryBadge = event.country === 'CA' ? 'Canadian' : event.country === 'US' ? 'U.S.' : '';
+
+    return `
+      <div class="${cardClass} rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden">
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">
+                  ${event.organizerName}
+                </span>
+                ${countryBadge ? `<span class="inline-block px-3 py-1 bg-gray-100 text-gray-700 text-xs font-semibold rounded-full">${countryFlag} ${countryBadge}</span>` : ''}
+                ${event.isFree ? '<span class="inline-block px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">FREE</span>' : ''}
+                ${event.eventType ? `<span class="inline-block px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">${event.eventType}</span>` : ''}
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2">
+                ${event.title}
+              </h3>
+            </div>
+          </div>
+          
+          ${!isPlaceholder ? `
+          <div class="space-y-3 mb-4">
+            <div class="flex items-center text-gray-600">
+              <svg class="w-5 h-5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              <span>${formattedDate}</span>
+            </div>
+            
+            <div class="flex items-center text-gray-600">
+              <svg class="w-5 h-5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <span>${formattedTime}</span>
+            </div>
+            
+            <div class="flex items-center text-gray-600">
+              <svg class="w-5 h-5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+              <span>${event.location}</span>
+            </div>
+          </div>
+          ` : ''}
+          
+          ${event.description ? `
+            <p class="text-gray-600 mb-4 ${!isPlaceholder ? 'line-clamp-3' : ''}">
+              ${event.description}
+            </p>
+          ` : ''}
+          
+          <a 
+            href="${event.url}" 
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center px-6 py-3 ${isPlaceholder ? 'bg-blue-500' : 'bg-blue-600'} hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors event-link"
+            data-event-id="${event.id}"
+            data-organizer-id="${event.organizerId}"
+            data-country="${event.country}"
+          >
+            ${isPlaceholder ? 'View Events' : 'Register Now'}
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    `;
+  }
+  
+  // Analytics tracking
+  function trackEventClick(eventId: string, organizerId: string, country: string) {
+    console.log(`📊 Analytics: Event clicked - ${eventId} (${organizerId}, ${country})`);
+    
+    // If you have Google Analytics:
+    // @ts-ignore
+    if (typeof gtag !== 'undefined') {
+      // @ts-ignore
+      gtag('event', 'event_click', {
+        event_category: 'Events',
+        event_label: eventId,
+        organizer: organizerId,
+        country: country
+      });
+    }
+    
+    // If you have Plausible:
+    // @ts-ignore
+    if (typeof plausible !== 'undefined') {
+      // @ts-ignore
+      plausible('Event Click', {
+        props: {
+          eventId: eventId,
+          organizer: organizerId,
+          country: country
+        }
+      });
+    }
+    
+    // Store in localStorage for your own analytics
+    const clicks = JSON.parse(localStorage.getItem('event_clicks') || '[]');
+    clicks.push({
+      eventId,
+      organizerId,
+      country,
+      timestamp: new Date().toISOString()
+    });
+    localStorage.setItem('event_clicks', JSON.stringify(clicks));
+  }
+
+  async function loadEvents(filters: any = {}) {
+    const loadingState = document.getElementById('loading-state');
+    const eventsContainer = document.getElementById('events-container');
+    const noResults = document.getElementById('no-results');
+    
+    if (!loadingState || !eventsContainer || !noResults) return;
+    
+    loadingState.classList.remove('hidden');
+    eventsContainer.classList.add('hidden');
+    noResults.classList.add('hidden');
+    
+    try {
+      const params = new URLSearchParams();
+      if (filters.keyword) params.append('keyword', filters.keyword);
+      if (filters.organizer) params.append('organizer', filters.organizer);
+      if (filters.timeframe) params.append('timeframe', filters.timeframe);
+      if (filters.country && filters.country !== 'all') params.append('country', filters.country);
+      
+      const url = `/api/events.json${params.toString() ? '?' + params : ''}`;
+      const response = await fetch(url);
+      
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      
+      const data = await response.json();
+      
+      loadingState.classList.add('hidden');
+      
+      // Update stats
+      document.getElementById('stat-total')!.textContent = data.count.toString();
+      document.getElementById('stat-ca')!.textContent = (data.meta?.canadianEvents || 0).toString();
+      document.getElementById('stat-us')!.textContent = (data.meta?.usEvents || 0).toString();
+      
+      if (!data.success || !data.events || data.events.length === 0) {
+        noResults.classList.remove('hidden');
+        return;
+      }
+      
+      eventsContainer.classList.remove('hidden');
+      eventsContainer.innerHTML = data.events.map((event: any) => createEventCard(event)).join('');
+      
+      // Add click tracking to all event links
+      document.querySelectorAll('.event-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+          const target = e.currentTarget as HTMLElement;
+          const eventId = target.dataset.eventId!;
+          const organizerId = target.dataset.organizerId!;
+          const country = target.dataset.country!;
+          trackEventClick(eventId, organizerId, country);
+        });
+      });
+      
+    } catch (error) {
+      console.error('Error loading events:', error);
+      loadingState.classList.add('hidden');
+      eventsContainer.classList.remove('hidden');
+      eventsContainer.innerHTML = `
+        <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+          <h3 class="text-lg font-semibold text-red-800 mb-2">Unable to Load Events</h3>
+          <p class="text-red-600">${error instanceof Error ? error.message : 'An error occurred'}</p>
+        </div>
+      `;
+    }
+  }
+
+  // Handle country tabs
+  document.querySelectorAll('.country-tab').forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLElement;
+      const country = target.dataset.country!;
+      
+      // Update active state
+      document.querySelectorAll('.country-tab').forEach(t => {
+        t.classList.remove('active', 'bg-white', 'text-blue-900');
+        t.classList.add('bg-blue-800', 'hover:bg-blue-700');
+      });
+      target.classList.add('active', 'bg-white', 'text-blue-900');
+      target.classList.remove('bg-blue-800', 'hover:bg-blue-700');
+      
+      currentCountry = country;
+      
+      const keyword = (document.getElementById('search-keyword') as HTMLInputElement)?.value;
+      const organizer = (document.getElementById('filter-organizer') as HTMLSelectElement)?.value;
+      const timeframe = (document.getElementById('filter-timeframe') as HTMLSelectElement)?.value;
+      
+      loadEvents({ keyword, organizer, timeframe, country: currentCountry });
+    });
+  });
+
+  // Handle search form
+  const searchForm = document.getElementById('event-search-form');
+  if (searchForm) {
+    searchForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const keyword = (document.getElementById('search-keyword') as HTMLInputElement)?.value;
+      const organizer = (document.getElementById('filter-organizer') as HTMLSelectElement)?.value;
+      const timeframe = (document.getElementById('filter-timeframe') as HTMLSelectElement)?.value;
+      
+      loadEvents({ keyword, organizer, timeframe, country: currentCountry });
+    });
+  }
+
+  // Load events on page load
+  loadEvents({ country: currentCountry });
+</script>
+
+<style>
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

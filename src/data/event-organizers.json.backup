@@ -1,0 +1,23 @@
+[
+  {
+    "id": "edc",
+    "name": "Export Development Canada",
+    "website": "https://www.edc.ca",
+    "eventsUrl": "https://www.edc.ca/en/events.html",
+    "description": "Canada's export credit agency providing financial services"
+  },
+  {
+    "id": "bdc",
+    "name": "Business Development Bank of Canada",
+    "website": "https://www.bdc.ca",
+    "eventsUrl": "https://www.bdc.ca/en/articles-tools/events",
+    "description": "Business development bank supporting entrepreneurs"
+  },
+  {
+    "id": "tfo-canada",
+    "name": "Trade Facilitation Office Canada",
+    "website": "https://www.tfocanada.ca",
+    "eventsUrl": "https://www.tfocanada.ca/events",
+    "description": "Trade facilitation services"
+  }
+]
