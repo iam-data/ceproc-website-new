@@ -1,0 +1,143 @@
+import { c as createComponent, i as renderComponent, r as renderTemplate, m as maybeRenderHead, f as addAttribute } from '../chunks/astro/server_DW7p6Anu.mjs';
+import 'piccolore';
+import { $ as $$Layout, s as siteConfig } from '../chunks/Layout_D9-Fp7JG.mjs';
+export { renderers } from '../renderers.mjs';
+
+const $$Terms = createComponent(($$result, $$props, $$slots) => {
+  return renderTemplate`---
+${renderComponent($$result, "Layout", $$Layout, { "title": "Terms of Service - CEPROC" }, { "default": ($$result2) => renderTemplate`${maybeRenderHead()}<section class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-32 pb-20"><div class="absolute inset-0 overflow-hidden"><div class="absolute -top-40 -right-40 w-80 h-80 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div><div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div></div><div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div class="text-center max-w-3xl mx-auto"><div class="inline-flex items-center rounded-full bg-cyan-500/10 border border-cyan-500/30 px-4 py-2 text-sm font-semibold text-cyan-400 mb-6"><svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+Legal Documentation
+</div><h1 class="text-5xl font-bold text-white mb-6 lg:text-6xl">
+Terms of Service
+</h1><p class="text-xl text-slate-300 mb-8">
+Please read these terms carefully before using our services
+</p><div class="inline-flex flex-col sm:flex-row gap-4 text-sm text-slate-400"><div class="flex items-center"><svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg><span>Effective: December 16, 2025</span></div><div class="flex items-center"><svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg><span>Last Reviewed: December 16, 2025</span></div></div></div></div></section><section class="py-20 bg-gradient-to-b from-white to-slate-50"><div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8"><!-- Introduction --><div class="bg-white rounded-3xl shadow-xl p-8 lg:p-12 mb-12 border border-slate-200"><p class="text-lg leading-relaxed text-slate-700">
+These Terms of Service (the "Terms") govern your access to and use of the website, services, and proprietary materials provided by the <strong class="text-slate-900">Canadian Export Promotion Council (CEPROC.CA)</strong>.
+</p></div><!-- Section 1 --><div class="bg-white rounded-3xl shadow-xl p-8 lg:p-12 mb-8 border border-slate-200"><div class="flex items-start mb-6"><div class="flex-shrink-0 h-10 w-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold shadow-lg">
+1
+</div><div class="ml-4 flex-1"><h2 class="text-3xl font-bold text-slate-900">
+Acceptance of Terms and Scope
+</h2></div></div><!-- Subsection 1.1 --><div class="mb-8"><h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center"><span class="h-8 w-8 rounded-lg bg-cyan-100 text-cyan-700 flex items-center justify-center text-sm font-bold mr-3">1.1</span>
+Agreement
+</h3><div class="bg-slate-50 rounded-2xl p-6 border border-slate-200"><p class="text-slate-700 leading-relaxed">
+By accessing, browsing, registering for, or using any part of the CEPROC.CA website or its services (including the Vetting & Partnership Program, Verified Sourcing, Policy Briefs, and the CDTCO Program), you agree to be bound by these Terms and our Privacy Policy. If you do not agree to these Terms, you may not access or use the services.
+</p></div></div><!-- Subsection 1.2 --><div><h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center"><span class="h-8 w-8 rounded-lg bg-cyan-100 text-cyan-700 flex items-center justify-center text-sm font-bold mr-3">1.2</span>
+Users
+</h3><div class="bg-slate-50 rounded-2xl p-6 border border-slate-200"><p class="text-slate-700 mb-4">These Terms apply to all users, including:</p><ul class="space-y-3"><li class="flex items-start"><svg class="h-6 w-6 text-cyan-600 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><div><strong class="text-slate-900">(a) Canadian Producers</strong><span class="text-slate-700"> - companies applying for or holding CEPROC Vetting Status</span></div></li><li class="flex items-start"><svg class="h-6 w-6 text-cyan-600 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><div><strong class="text-slate-900">(b) International Buyers</strong><span class="text-slate-700"> - parties seeking verified Canadian sources</span></div></li><li class="flex items-start"><svg class="h-6 w-6 text-cyan-600 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><div><strong class="text-slate-900">(c) General Users</strong><span class="text-slate-700"> - visitors accessing public content</span></div></li></ul></div></div></div><!-- Section 2 --><div class="bg-white rounded-3xl shadow-xl p-8 lg:p-12 mb-8 border border-slate-200"><div class="flex items-start mb-6"><div class="flex-shrink-0 h-10 w-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold shadow-lg">
+2
+</div><div class="ml-4 flex-1"><h2 class="text-3xl font-bold text-slate-900">
+The CEPROC Vetting & Partnership Program
+</h2></div></div><!-- Subsection 2.1 --><div class="mb-6"><h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center"><span class="h-8 w-8 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-sm font-bold mr-3">2.1</span>
+Vetting Application and Integrity
+</h3><div class="bg-slate-50 rounded-2xl p-6 border border-slate-200"><p class="text-slate-700 leading-relaxed">
+Application for the <strong>CEPROC Vetting Status</strong> requires the submission of truthful, accurate, and complete company, financial, compliance, and operational data. You warrant that all information provided during the application and subsequent monitoring phases is current and non-misleading.
+</p></div></div><!-- Subsection 2.2 --><div class="mb-6"><h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center"><span class="h-8 w-8 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-sm font-bold mr-3">2.2</span>
+Vetting Status and Monitoring
+</h3><div class="bg-purple-50 rounded-2xl p-6 border border-purple-200"><p class="text-slate-700 mb-4">CEPROC.CA reserves the right, at its sole discretion, to:</p><ul class="space-y-3"><li class="flex items-start"><svg class="h-6 w-6 text-purple-600 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg><div><strong class="text-slate-900">Deny</strong><span class="text-slate-700"> Vetting Status to any applicant.</span></div></li><li class="flex items-start"><svg class="h-6 w-6 text-purple-600 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg><div><strong class="text-slate-900">Revoke or Suspend</strong><span class="text-slate-700"> Vetting Status at any time based on failed compliance audits, regulatory breaches, or evidence of material misrepresentation.</span></div></li><li class="flex items-start"><svg class="h-6 w-6 text-purple-600 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg><div><strong class="text-slate-900">Conduct Continuous Monitoring</strong><span class="text-slate-700"> of compliance records, legal standing, and public record data.</span></div></li></ul></div></div><!-- Subsection 2.3 --><div class="mb-6"><h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center"><span class="h-8 w-8 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-sm font-bold mr-3">2.3</span>
+The CEPROC Verified Seal
+</h3><div class="bg-slate-50 rounded-2xl p-6 border border-slate-200"><p class="text-slate-700 mb-4">The <strong>CEPROC Verified</strong> seal, logo, and Vetting Status are proprietary marks of CEPROC.CA.</p><ul class="space-y-3"><li class="flex items-start"><svg class="h-6 w-6 text-purple-600 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg><div><strong class="text-slate-900">License:</strong><span class="text-slate-700"> Use of the seal is a limited, non-transferable, revocable license granted solely during the period of active, valid Vetting Status.</span></div></li><li class="flex items-start"><svg class="h-6 w-6 text-red-600 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg><div><strong class="text-slate-900">Prohibited Use:</strong><span class="text-slate-700"> Any unauthorized use of the seal, including displaying it after status is revoked or implying Vetting Status where none exists, is a breach of these Terms and may result in legal action.</span></div></li></ul></div></div><!-- Subsection 2.4 --><div><h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center"><span class="h-8 w-8 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-sm font-bold mr-3">2.4</span>
+Fees and Payment
+</h3><div class="bg-amber-50 rounded-2xl p-6 border border-amber-200"><p class="text-slate-700 leading-relaxed">
+All membership, Vetting, and Certification fees (including the CDTCO Program) are payable upon invoice. All fees are <strong class="text-slate-900">non-refundable</strong>, except as otherwise stipulated in a separate written membership agreement or required by Canadian consumer protection law.
+</p></div></div></div><!-- Section 3 --><div class="bg-white rounded-3xl shadow-xl p-8 lg:p-12 mb-8 border border-slate-200"><div class="flex items-start mb-6"><div class="flex-shrink-0 h-10 w-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center text-white font-bold shadow-lg">
+3
+</div><div class="ml-4 flex-1"><h2 class="text-3xl font-bold text-slate-900">
+Verified Connectivity and Introductions
+</h2></div></div><!-- Subsection 3.1 --><div class="mb-6"><h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center"><span class="h-8 w-8 rounded-lg bg-pink-100 text-pink-700 flex items-center justify-center text-sm font-bold mr-3">3.1</span>
+Facilitator Role
+</h3><div class="bg-slate-50 rounded-2xl p-6 border border-slate-200"><p class="text-slate-700 leading-relaxed">
+CEPROC.CA acts strictly as a neutral, trusted facilitator providing <strong>Direct Introductions</strong> between Vetted Producers and pre-qualified International Buyers. CEPROC.CA does not participate in the negotiation, sale, financing, or execution of any resulting trade agreement.
+</p></div></div><!-- Subsection 3.2 --><div><h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center"><span class="h-8 w-8 rounded-lg bg-pink-100 text-pink-700 flex items-center justify-center text-sm font-bold mr-3">3.2</span>
+No Guarantee of Outcome
+</h3><div class="bg-amber-50 rounded-2xl p-6 border border-amber-200"><p class="text-slate-700 leading-relaxed">
+CEPROC.CA does not guarantee export success, minimum sales volumes, buyer performance, payment, or contract fulfillment. Users are solely responsible for conducting their own final due diligence, contracting, and managing risks associated with any transaction resulting from a CEPROC introduction.
+</p></div></div></div><!-- Section 4 --><div class="bg-white rounded-3xl shadow-xl p-8 lg:p-12 mb-8 border border-slate-200"><div class="flex items-start mb-6"><div class="flex-shrink-0 h-10 w-10 rounded-xl bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white font-bold shadow-lg">
+4
+</div><div class="ml-4 flex-1"><h2 class="text-3xl font-bold text-slate-900">
+Intellectual Property and Data Use
+</h2></div></div><!-- Subsection 4.1 --><div class="mb-6"><h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center"><span class="h-8 w-8 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center text-sm font-bold mr-3">4.1</span>
+CEPROC.CA Proprietary Content
+</h3><div class="bg-slate-50 rounded-2xl p-6 border border-slate-200"><p class="text-slate-700 leading-relaxed">
+All content, designs, trademarks, service marks, algorithms, and proprietary data models (including the <strong>Regulatory Bottleneck Index (RBI)</strong>, Market Data Reports, Policy Briefs, and the <strong>CEPROC Verified</strong> seal) are the exclusive intellectual property of CEPROC.CA.
+</p></div></div><!-- Subsection 4.2 --><div class="mb-6"><h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center"><span class="h-8 w-8 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center text-sm font-bold mr-3">4.2</span>
+Licensing of Digital Products
+</h3><div class="bg-slate-50 rounded-2xl p-6 border border-slate-200"><p class="text-slate-700 leading-relaxed">
+Users downloading Policy Briefs or Market Data Reports are granted a single, non-transferable, limited license solely for their internal business use. Redistribution, publication, or resale of CEPROC's proprietary data is strictly prohibited without explicit written consent.
+</p></div></div><!-- Subsection 4.3 --><div><h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center"><span class="h-8 w-8 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center text-sm font-bold mr-3">4.3</span>
+Use of Member Data
+</h3><div class="bg-slate-50 rounded-2xl p-6 border border-slate-200"><p class="text-slate-700 leading-relaxed">
+By submitting data for Vetting, the Member grants CEPROC a worldwide, non-exclusive, royalty-free license to use, aggregate, and anonymize such data for the purpose of generating industry reports, policy papers, and other data products, in accordance with the CEPROC Privacy Policy.
+</p></div></div><!-- Section 5 --><div class="bg-white rounded-3xl shadow-xl p-8 lg:p-12 mb-8 border border-slate-200"><div class="flex items-start mb-6"><div class="flex-shrink-0 h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white font-bold shadow-lg">
+5
+</div><div class="ml-4 flex-1"><h2 class="text-3xl font-bold text-slate-900">
+User Obligations and Prohibited Conduct
+</h2></div></div><!-- Subsection 5.1 --><div class="mb-6"><h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center"><span class="h-8 w-8 rounded-lg bg-teal-100 text-teal-700 flex items-center justify-center text-sm font-bold mr-3">5.1</span>
+Compliance
+</h3><div class="bg-emerald-50 rounded-2xl p-6 border border-emerald-200"><p class="text-slate-700 leading-relaxed">
+All users agree to comply with all applicable Canadian federal, provincial, and local laws, and relevant international trade and anti-corruption laws (including, but not limited to, the <em class="text-emerald-700">Corruption of Foreign Public Officials Act (CFPOA)</em>).
+</p></div></div><!-- Subsection 5.2 --><div><h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center"><span class="h-8 w-8 rounded-lg bg-teal-100 text-teal-700 flex items-center justify-center text-sm font-bold mr-3">5.2</span>
+Prohibited Conduct
+</h3><div class="bg-red-50 rounded-2xl p-6 border border-red-200"><p class="text-slate-700 mb-4">You agree not to:</p><ul class="space-y-3"><li class="flex items-start"><svg class="h-6 w-6 text-red-600 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg><span class="text-slate-700">Misrepresent your Vetting Status or the nature of your products/services.</span></li><li class="flex items-start"><svg class="h-6 w-6 text-red-600 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg><span class="text-slate-700">Use the CEPROC platform to promote illegal activities, spam, or abusive material.</span></li><li class="flex items-start"><svg class="h-6 w-6 text-red-600 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg><span class="text-slate-700">Attempt to disrupt or compromise the integrity or security of the CEPROC.CA website or network.</span></li></ul></div></div></div><!-- Section 6 - Disclaimers --><div class="bg-white rounded-3xl shadow-xl p-8 lg:p-12 mb-8 border border-slate-200"><div class="flex items-start mb-6"><div class="flex-shrink-0 h-10 w-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white font-bold shadow-lg">
+6
+</div><div class="ml-4 flex-1"><h2 class="text-3xl font-bold text-slate-900">
+Disclaimers and Limitation of Liability
+</h2></div></div><!-- Subsection 6.1 --><div class="mb-6"><h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center"><span class="h-8 w-8 rounded-lg bg-orange-100 text-orange-700 flex items-center justify-center text-sm font-bold mr-3">6.1</span>
+Warranty Disclaimer
+</h3><div class="bg-amber-50 rounded-2xl p-6 border border-amber-200"><p class="text-slate-700 leading-relaxed uppercase tracking-wide text-sm font-semibold">
+THE SERVICES, WEBSITE, AND ALL CONTENT ARE PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.
+</p></div></div><!-- Subsection 6.2 --><div><h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center"><span class="h-8 w-8 rounded-lg bg-orange-100 text-orange-700 flex items-center justify-center text-sm font-bold mr-3">6.2</span>
+Limitation of Liability
+</h3><div class="bg-red-50 rounded-2xl p-6 border border-red-200"><p class="text-slate-700 leading-relaxed uppercase tracking-wide text-sm font-semibold">
+TO THE FULLEST EXTENT PERMITTED BY LAW, IN NO EVENT SHALL CEPROC.CA, ITS DIRECTORS, EMPLOYEES, OR AGENTS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING, WITHOUT LIMITATION, LOSS OF PROFITS, DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, ARISING OUT OF YOUR ACCESS TO OR USE OF (OR INABILITY TO USE) THE SERVICES, WHETHER BASED ON WARRANTY, CONTRACT, TORT (INCLUDING NEGLIGENCE), OR ANY OTHER LEGAL THEORY.
+</p></div></div></div><!-- Section 7 - Termination --><div class="bg-white rounded-3xl shadow-xl p-8 lg:p-12 mb-8 border border-slate-200"><div class="flex items-start mb-6"><div class="flex-shrink-0 h-10 w-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold shadow-lg">
+7
+</div><div class="ml-4 flex-1"><h2 class="text-3xl font-bold text-slate-900">
+Termination
+</h2></div></div><!-- Subsection 7.1 --><div class="mb-6"><h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center"><span class="h-8 w-8 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-sm font-bold mr-3">7.1</span>
+Termination by CEPROC
+</h3><div class="bg-slate-50 rounded-2xl p-6 border border-slate-200"><p class="text-slate-700 leading-relaxed">
+CEPROC.CA may terminate or suspend your membership, access to the services, and your Vetting Status immediately, without prior notice or liability, if you materially breach these Terms.
+</p></div></div><!-- Subsection 7.2 --><div><h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center"><span class="h-8 w-8 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-sm font-bold mr-3">7.2</span>
+Effect of Termination
+</h3><div class="bg-slate-50 rounded-2xl p-6 border border-slate-200"><p class="text-slate-700 leading-relaxed">
+Upon termination, your right to use the services and the <strong>CEPROC Verified</strong> seal immediately ceases. All provisions of the Terms which, by their nature, should survive termination (including, without limitation, IP ownership, disclaimers, and limitations of liability) shall survive termination.
+</p></div></div></div><!-- Section 8 - Governing Law --><div class="bg-white rounded-3xl shadow-xl p-8 lg:p-12 mb-8 border border-slate-200"><div class="flex items-start mb-6"><div class="flex-shrink-0 h-10 w-10 rounded-xl bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center text-white font-bold shadow-lg">
+8
+</div><div class="ml-4 flex-1"><h2 class="text-3xl font-bold text-slate-900">
+Governing Law
+</h2></div></div><div class="bg-slate-50 rounded-2xl p-6 border border-slate-200"><p class="text-slate-700 leading-relaxed">
+These Terms shall be governed and construed in accordance with the laws of the <strong class="text-slate-900">Province of Ontario</strong> and the <strong class="text-slate-900">federal laws of Canada</strong> applicable therein, without regard to its conflict of law provisions. You agree to submit to the exclusive jurisdiction of the courts located in Toronto, Ontario, Canada, to resolve any legal matter arising from these Terms.
+</p></div></div><!-- Section 9 - Contact --><div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl shadow-2xl p-8 lg:p-12 mb-8 border border-slate-700"><div class="flex items-start mb-6"><div class="flex-shrink-0 h-10 w-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold shadow-lg">
+9
+</div><div class="ml-4 flex-1"><h2 class="text-3xl font-bold text-white">
+Contact Information
+</h2></div></div><p class="text-slate-300 leading-relaxed mb-6">
+For any questions regarding these Terms of Service, please contact:
+</p><div class="bg-slate-800 rounded-2xl p-6 border border-slate-700"><div class="space-y-4"><div class="flex items-start"><svg class="h-6 w-6 text-cyan-400 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg><div><p class="text-sm text-slate-400">${siteConfig.departments.legal.title}</p><p class="text-white font-semibold">${siteConfig.departments.legal.name}</p></div></div><div class="flex items-start"><svg class="h-6 w-6 text-cyan-400 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg><div><p class="text-sm text-slate-400">Email</p><a${addAttribute(`mailto:${siteConfig.email.legal}`, "href")} class="text-cyan-400 hover:text-cyan-300 font-semibold">${siteConfig.email.legal}</a></div></div><div class="flex items-start"><svg class="h-6 w-6 text-cyan-400 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg><div><p class="text-sm text-slate-400">Mailing Address</p><p class="text-white">${siteConfig.company.name} (${siteConfig.company.shortName})</p><p class="text-slate-300">${siteConfig.address.full}</p></div></div></div></div></div><!-- Footer Note --><div class="bg-slate-100 rounded-2xl p-6 border-2 border-slate-300 border-dashed"><p class="text-sm text-slate-600 italic text-center leading-relaxed">
+These Terms of Service may be updated from time to time. We will notify members of significant changes via email or prominent notice on our website.
+</p></div><!-- CTA Section --><div class="mt-12 text-center"><h3 class="text-2xl font-bold text-slate-900 mb-4">
+Questions About These Terms?
+</h3><p class="text-slate-600 mb-8 max-w-2xl mx-auto">
+Our Legal Department is here to help. Contact us for any questions or clarifications regarding these Terms of Service.
+</p><div class="flex flex-col sm:flex-row gap-4 justify-center"><a href="mailto:legal@ceproc.ca" class="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 text-base font-semibold text-white hover:shadow-2xl hover:scale-105 transition-all"><svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+Email Legal Department
+</a><a href="/contact" class="inline-flex items-center justify-center rounded-xl border-2 border-slate-300 bg-white px-8 py-4 text-base font-semibold text-slate-900 hover:bg-slate-50 transition-all">
+General Contact
+</a></div></div><!-- Back to Home --><div class="mt-12 text-center"><a href="/" class="inline-flex items-center text-slate-600 hover:text-cyan-600 transition-colors font-medium"><svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+Back to Home
+</a></div></div></div></section>` })}`;
+}, "/Users/anthony.mano/ceproc-astro-website/src/pages/terms.astro", void 0);
+
+const $$file = "/Users/anthony.mano/ceproc-astro-website/src/pages/terms.astro";
+const $$url = "/terms";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$Terms,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };
