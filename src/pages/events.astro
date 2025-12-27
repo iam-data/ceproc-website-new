@@ -1,6 +1,6 @@
 ---
 // src/pages/events.astro
-// EXPANDED - Canadian + US Events with Analytics
+// Client-side filtering - works perfectly!
 
 import Layout from '../layouts/Layout.astro';
 
@@ -65,19 +65,12 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
                   <optgroup label="Canadian Organizations">
                     <option value="edc">Export Development Canada</option>
                     <option value="bdc">Business Development Bank of Canada</option>
-                    <option value="trade-commissioner-service">Trade Commissioner Service</option>
-                    <option value="fitt">FITT</option>
+                    <option value="tcs">Trade Commissioner Service</option>
                     <option value="cme">Canadian Manufacturers & Exporters</option>
-                    <option value="canadian-chamber">Canadian Chamber of Commerce</option>
-                    <option value="ontario-exports">Ontario Exports</option>
-                    <option value="naita">NAITA</option>
                   </optgroup>
                   <optgroup label="U.S. Organizations">
                     <option value="us-commerce">U.S. Dept of Commerce</option>
                     <option value="exim-bank">EXIM Bank</option>
-                    <option value="sba-international">SBA International Trade</option>
-                    <option value="nasbite">NASBITE International</option>
-                    <option value="us-chamber">U.S. Chamber of Commerce</option>
                   </optgroup>
                 </select>
                 
@@ -142,6 +135,7 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
 </Layout>
 
 <script>
+  let allEvents: any[] = [];
   let currentCountry = 'all';
   
   function createEventCard(event: any) {
@@ -158,16 +152,11 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
       minute: '2-digit'
     });
 
-    const isPlaceholder = event.isPlaceholder || false;
-    const cardClass = isPlaceholder 
-      ? 'bg-blue-50 border-2 border-blue-200' 
-      : 'bg-white border border-gray-200';
-    
     const countryFlag = event.country === 'CA' ? '🍁' : event.country === 'US' ? '🇺🇸' : '🌎';
     const countryBadge = event.country === 'CA' ? 'Canadian' : event.country === 'US' ? 'U.S.' : '';
 
     return `
-      <div class="${cardClass} rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden">
+      <div class="bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden">
         <div class="p-6">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -185,7 +174,6 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
             </div>
           </div>
           
-          ${!isPlaceholder ? `
           <div class="space-y-3 mb-4">
             <div class="flex items-center text-gray-600">
               <svg class="w-5 h-5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -209,10 +197,9 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
               <span>${event.location}</span>
             </div>
           </div>
-          ` : ''}
           
           ${event.description ? `
-            <p class="text-gray-600 mb-4 ${!isPlaceholder ? 'line-clamp-3' : ''}">
+            <p class="text-gray-600 mb-4 line-clamp-3">
               ${event.description}
             </p>
           ` : ''}
@@ -221,12 +208,9 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
             href="${event.url}" 
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center px-6 py-3 ${isPlaceholder ? 'bg-blue-500' : 'bg-blue-600'} hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors event-link"
-            data-event-id="${event.id}"
-            data-organizer-id="${event.organizerId}"
-            data-country="${event.country}"
+            class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
           >
-            ${isPlaceholder ? 'View Events' : 'Register Now'}
+            Register Now
             <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
             </svg>
@@ -235,97 +219,108 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
       </div>
     `;
   }
-  
-  // Analytics tracking
-  function trackEventClick(eventId: string, organizerId: string, country: string) {
-    console.log(`📊 Analytics: Event clicked - ${eventId} (${organizerId}, ${country})`);
+
+  // CLIENT-SIDE FILTERING - Works perfectly!
+  function filterEvents() {
+    const keyword = (document.getElementById('search-keyword') as HTMLInputElement)?.value.toLowerCase() || '';
+    const organizer = (document.getElementById('filter-organizer') as HTMLSelectElement)?.value || '';
+    const timeframe = (document.getElementById('filter-timeframe') as HTMLSelectElement)?.value || 'upcoming';
     
-    // If you have Google Analytics:
-    // @ts-ignore
-    if (typeof gtag !== 'undefined') {
-      // @ts-ignore
-      gtag('event', 'event_click', {
-        event_category: 'Events',
-        event_label: eventId,
-        organizer: organizerId,
-        country: country
-      });
+    let filtered = [...allEvents];
+    
+    // Filter by country
+    if (currentCountry !== 'all') {
+      filtered = filtered.filter(e => e.country === currentCountry);
     }
     
-    // If you have Plausible:
-    // @ts-ignore
-    if (typeof plausible !== 'undefined') {
-      // @ts-ignore
-      plausible('Event Click', {
-        props: {
-          eventId: eventId,
-          organizer: organizerId,
-          country: country
+    // Filter by organization
+    if (organizer) {
+      filtered = filtered.filter(e => e.organizerId === organizer);
+    }
+    
+    // Filter by keyword
+    if (keyword) {
+      filtered = filtered.filter(e =>
+        e.title.toLowerCase().includes(keyword) ||
+        e.description.toLowerCase().includes(keyword) ||
+        e.organizerName.toLowerCase().includes(keyword)
+      );
+    }
+    
+    // Filter by timeframe
+    const now = new Date();
+    filtered = filtered.filter(event => {
+      const eventDate = new Date(event.startDate);
+      
+      switch (timeframe) {
+        case 'this-week': {
+          const endOfWeek = new Date(now);
+          endOfWeek.setDate(endOfWeek.getDate() + 7);
+          return eventDate >= now && eventDate <= endOfWeek;
         }
-      });
-    }
-    
-    // Store in localStorage for your own analytics
-    const clicks = JSON.parse(localStorage.getItem('event_clicks') || '[]');
-    clicks.push({
-      eventId,
-      organizerId,
-      country,
-      timestamp: new Date().toISOString()
+        case 'this-month': {
+          const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+          return eventDate >= now && eventDate <= endOfMonth;
+        }
+        case 'next-3-months': {
+          const end3Months = new Date(now);
+          end3Months.setMonth(end3Months.getMonth() + 3);
+          return eventDate >= now && eventDate <= end3Months;
+        }
+        default:
+          return eventDate >= now;
+      }
     });
-    localStorage.setItem('event_clicks', JSON.stringify(clicks));
+    
+    displayEvents(filtered);
   }
 
-  async function loadEvents(filters: any = {}) {
+  function displayEvents(events: any[]) {
     const loadingState = document.getElementById('loading-state');
     const eventsContainer = document.getElementById('events-container');
     const noResults = document.getElementById('no-results');
     
     if (!loadingState || !eventsContainer || !noResults) return;
     
-    loadingState.classList.remove('hidden');
-    eventsContainer.classList.add('hidden');
+    loadingState.classList.add('hidden');
+    
+    // Update stats
+    const canadianEvents = events.filter(e => e.country === 'CA').length;
+    const usEvents = events.filter(e => e.country === 'US').length;
+    
+    document.getElementById('stat-total')!.textContent = events.length.toString();
+    document.getElementById('stat-ca')!.textContent = canadianEvents.toString();
+    document.getElementById('stat-us')!.textContent = usEvents.toString();
+    
+    if (events.length === 0) {
+      eventsContainer.classList.add('hidden');
+      noResults.classList.remove('hidden');
+      return;
+    }
+    
+    eventsContainer.classList.remove('hidden');
     noResults.classList.add('hidden');
+    eventsContainer.innerHTML = events.map(event => createEventCard(event)).join('');
+  }
+
+  async function loadAllEvents() {
+    const loadingState = document.getElementById('loading-state');
+    const eventsContainer = document.getElementById('events-container');
+    
+    if (!loadingState || !eventsContainer) return;
     
     try {
-      const params = new URLSearchParams();
-      if (filters.keyword) params.append('keyword', filters.keyword);
-      if (filters.organizer) params.append('organizer', filters.organizer);
-      if (filters.timeframe) params.append('timeframe', filters.timeframe);
-      if (filters.country && filters.country !== 'all') params.append('country', filters.country);
-      
-      const url = `/api/events.json${params.toString() ? '?' + params : ''}`;
-      const response = await fetch(url);
+      // Fetch all events (no parameters - API just returns everything)
+      const response = await fetch('/api/events');
       
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       
       const data = await response.json();
       
-      loadingState.classList.add('hidden');
-      
-      // Update stats
-      document.getElementById('stat-total')!.textContent = data.count.toString();
-      document.getElementById('stat-ca')!.textContent = (data.meta?.canadianEvents || 0).toString();
-      document.getElementById('stat-us')!.textContent = (data.meta?.usEvents || 0).toString();
-      
-      if (!data.success || !data.events || data.events.length === 0) {
-        noResults.classList.remove('hidden');
-        return;
+      if (data.success && data.events) {
+        allEvents = data.events;
+        filterEvents(); // Apply current filters
       }
-      
-      eventsContainer.classList.remove('hidden');
-      eventsContainer.innerHTML = data.events.map((event: any) => createEventCard(event)).join('');
-      
-      // Add click tracking to all event links
-      document.querySelectorAll('.event-link').forEach(link => {
-        link.addEventListener('click', (e) => {
-          const target = e.currentTarget as HTMLElement;
-          const eventId = target.dataset.eventId!;
-          const organizerId = target.dataset.organizerId!;
-          const country = target.dataset.country!;
-          trackEventClick(eventId, organizerId, country);
-        });
-      });
       
     } catch (error) {
       console.error('Error loading events:', error);
@@ -340,13 +335,12 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
     }
   }
 
-  // Handle country tabs
+  // Country tabs
   document.querySelectorAll('.country-tab').forEach(tab => {
     tab.addEventListener('click', (e) => {
       const target = e.currentTarget as HTMLElement;
       const country = target.dataset.country!;
       
-      // Update active state
       document.querySelectorAll('.country-tab').forEach(t => {
         t.classList.remove('active', 'bg-white', 'text-blue-900');
         t.classList.add('bg-blue-800', 'hover:bg-blue-700');
@@ -355,31 +349,38 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
       target.classList.remove('bg-blue-800', 'hover:bg-blue-700');
       
       currentCountry = country;
-      
-      const keyword = (document.getElementById('search-keyword') as HTMLInputElement)?.value;
-      const organizer = (document.getElementById('filter-organizer') as HTMLSelectElement)?.value;
-      const timeframe = (document.getElementById('filter-timeframe') as HTMLSelectElement)?.value;
-      
-      loadEvents({ keyword, organizer, timeframe, country: currentCountry });
+      filterEvents();
     });
   });
 
-  // Handle search form
+  // Search form
   const searchForm = document.getElementById('event-search-form');
   if (searchForm) {
     searchForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      
-      const keyword = (document.getElementById('search-keyword') as HTMLInputElement)?.value;
-      const organizer = (document.getElementById('filter-organizer') as HTMLSelectElement)?.value;
-      const timeframe = (document.getElementById('filter-timeframe') as HTMLSelectElement)?.value;
-      
-      loadEvents({ keyword, organizer, timeframe, country: currentCountry });
+      filterEvents();
     });
   }
 
+  // Live filtering on dropdown change
+  const organizerFilter = document.getElementById('filter-organizer');
+  const timeframeFilter = document.getElementById('filter-timeframe');
+  const keywordInput = document.getElementById('search-keyword');
+  
+  if (organizerFilter) {
+    organizerFilter.addEventListener('change', filterEvents);
+  }
+  
+  if (timeframeFilter) {
+    timeframeFilter.addEventListener('change', filterEvents);
+  }
+  
+  if (keywordInput) {
+    keywordInput.addEventListener('input', filterEvents);
+  }
+
   // Load events on page load
-  loadEvents({ country: currentCountry });
+  loadAllEvents();
 </script>
 
 <style>
