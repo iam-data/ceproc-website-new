@@ -29,19 +29,26 @@ export async function scrapeEDC(): Promise<EDCEvent[]> {
     // PART 1: Scrape UPCOMING events from JSON API
     // ========================================
     try {
+      console.log('📊 Attempting to fetch EDC JSON API...');
+      
       const jsonResponse = await axios.get('https://www.edc.ca/bin/upcomingeventsservlet.json', {
         timeout: 15000,
         headers: {
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-          'Accept': 'application/json',
-          'Referer': 'https://www.edc.ca/en/events.html'
+          'Accept': 'application/json, text/plain, */*',
+          'Accept-Language': 'en-US,en;q=0.9',
+          'Referer': 'https://www.edc.ca/en/events.html',
+          'Origin': 'https://www.edc.ca'
         }
       });
+      
+      console.log('📊 EDC JSON API Response Status:', jsonResponse.status);
+      console.log('📊 EDC JSON API Response Type:', typeof jsonResponse.data);
       
       const pageItems = jsonResponse.data?.pageItems;
       
       if (pageItems && Array.isArray(pageItems)) {
-        console.log(`📊 EDC Upcoming events: ${pageItems.length}`);
+        console.log(`📊 EDC Upcoming events found: ${pageItems.length}`);
         
         for (const item of pageItems) {
           const title = item.linkText || item.title || '';
@@ -49,6 +56,8 @@ export async function scrapeEDC(): Promise<EDCEvent[]> {
           const dateStr = item.date || item.eventDate || item.startDate || '';
           const link = item.linkUrl || item.url || '';
           const eventType = item.eventType || 'webinar';
+          
+          console.log(`📊 Processing: ${title}, Date: ${dateStr}, Link: ${link}`);
           
           if (title && link) {
             let startDate: string;
@@ -79,9 +88,20 @@ export async function scrapeEDC(): Promise<EDCEvent[]> {
             });
           }
         }
+      } else {
+        console.log('⚠️ EDC JSON API returned no pageItems or wrong format');
+        console.log('📊 Response structure:', JSON.stringify(jsonResponse.data).substring(0, 200));
       }
     } catch (error) {
-      console.error('⚠️ EDC JSON API failed:', error);
+      if (error instanceof Error) {
+        console.error('❌ EDC JSON API failed:', error.message);
+        if ('response' in error) {
+          const axiosError = error as any;
+          console.error('❌ Status:', axiosError.response?.status);
+          console.error('❌ Response type:', typeof axiosError.response?.data);
+          console.error('❌ Response preview:', String(axiosError.response?.data).substring(0, 200));
+        }
+      }
     }
     
     // ========================================

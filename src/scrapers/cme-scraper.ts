@@ -1,8 +1,8 @@
 // src/scrapers/cme-scraper.ts
-// Canadian Manufacturers & Exporters Events Scraper
+// CME Events Scraper with Puppeteer for JavaScript rendering
 
-import axios from 'axios';
-import * as cheerio from 'cheerio';
+import chromium from '@sparticuz/chromium';
+import puppeteer from 'puppeteer-core';
 
 interface CMEEvent {
   id: string;
@@ -19,68 +19,131 @@ interface CMEEvent {
 }
 
 export async function scrapeCME(): Promise<CMEEvent[]> {
+  let browser;
+  
   try {
-    console.log('🔍 Scraping CME events...');
+    console.log('🔍 Scraping CME events with Puppeteer...');
     
-    const response = await axios.get('https://cme-mec.ca/connection/', {
-      timeout: 15000,
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-      }
+    // Launch browser
+    browser = await puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
     });
     
-    const $ = cheerio.load(response.data);
-    const events: CMEEvent[] = [];
+    const page = await browser.newPage();
     
-    // CME uses isotope filtering - events have specific classes
-    $('.element, .mix, .event-item, article').each((i, elem) => {
-      const $elem = $(elem);
+    // Go to CME events page with filter=* to show all
+    await page.goto('https://cme-mec.ca/connection/#filter=*', {
+      waitUntil: 'networkidle0',
+      timeout: 30000
+    });
+    
+    // Wait for events to load (Isotope takes a moment)
+    await page.waitForSelector('.mix', { timeout: 10000 });
+    
+    console.log('📊 CME: Page loaded, extracting events...');
+    
+    // Extract event data from the rendered page
+    const events = await page.evaluate(() => {
+      const eventElements = document.querySelectorAll('.mix');
+      const extractedEvents: any[] = [];
       
-      const title = $elem.find('h2, h3, h4, .title, .event-title').first().text().trim();
-      const description = $elem.find('p, .description').first().text().trim();
-      const dateText = $elem.find('.date, time').first().text().trim();
-      const link = $elem.find('a').first().attr('href');
-      
-      // Determine event type from classes
-      let eventType: CMEEvent['eventType'] = 'conference';
-      const classes = $elem.attr('class') || '';
-      if (classes.includes('webinar')) eventType = 'webinar';
-      if (classes.includes('training')) eventType = 'training';
-      if (classes.includes('networking')) eventType = 'networking';
-      
-      if (title && link && title.length > 5) {
-        let startDate: string;
-        try {
-          startDate = new Date(dateText).toISOString();
-        } catch {
-          const futureDate = new Date();
-          futureDate.setDate(futureDate.getDate() + (20 + i * 10));
-          startDate = futureDate.toISOString();
+      eventElements.forEach((elem) => {
+        // Get title
+        const titleElem = elem.querySelector('h2, h3, h4, .title');
+        const title = titleElem?.textContent?.trim() || '';
+        
+        // Get link
+        const linkElem = elem.querySelector('a');
+        const url = linkElem?.href || '';
+        
+        // Get description
+        const descElem = elem.querySelector('p, .description');
+        const description = descElem?.textContent?.trim() || '';
+        
+        // Get date
+        const dateElem = elem.querySelector('[class*="date"], time');
+        const dateText = dateElem?.textContent?.trim() || '';
+        
+        // Get location
+        const locationElem = elem.querySelector('[class*="location"]');
+        const location = locationElem?.textContent?.trim() || '';
+        
+        // Get event type from classes
+        const classes = elem.className || '';
+        let eventType = 'conference';
+        if (classes.includes('webinar')) eventType = 'webinar';
+        if (classes.includes('training')) eventType = 'training';
+        if (classes.includes('networking')) eventType = 'networking';
+        
+        if (title && url && title.length > 5) {
+          extractedEvents.push({
+            title,
+            url,
+            description,
+            dateText,
+            location,
+            eventType,
+            classes
+          });
         }
-        
-        const absoluteUrl = link.startsWith('http') ? link : `https://cme-mec.ca${link}`;
-        
-        events.push({
-          id: `cme-${generateId(title)}`,
-          title: cleanTitle(title),
-          description: description || 'CME event for manufacturers and exporters.',
-          startDate: startDate,
-          location: 'Various locations',
-          url: absoluteUrl,
-          organizerId: 'cme',
-          organizerName: 'Canadian Manufacturers & Exporters',
-          isFree: false,
-          country: 'CA',
-          eventType: eventType
-        });
-      }
+      });
+      
+      return extractedEvents;
     });
     
-    console.log(`✅ CME: Found ${events.length} events`);
-    return events;
+    await browser.close();
+    
+    console.log(`📊 CME: Found ${events.length} events in browser`);
+    
+    // Process and format events
+    const formattedEvents: CMEEvent[] = events.map((event, i) => {
+      let startDate: string;
+      
+      if (event.dateText && event.dateText.length > 0) {
+        try {
+          const parsed = new Date(event.dateText);
+          if (!isNaN(parsed.getTime())) {
+            startDate = parsed.toISOString();
+          } else {
+            // Can't parse - assume on-demand
+            startDate = new Date('2030-12-31').toISOString();
+          }
+        } catch {
+          startDate = new Date('2030-12-31').toISOString();
+        }
+      } else {
+        // No date = on-demand
+        startDate = new Date('2030-12-31').toISOString();
+      }
+      
+      const isOnDemand = startDate.includes('2030');
+      
+      return {
+        id: `cme-${isOnDemand ? 'ondemand' : 'upcoming'}-${generateId(event.title)}`,
+        title: cleanTitle(event.title) + (isOnDemand ? ' (On-Demand)' : ''),
+        description: event.description || 'CME event for manufacturers and exporters.',
+        startDate: startDate,
+        location: isOnDemand ? 'On-Demand' : (event.location || 'Various locations'),
+        url: event.url,
+        organizerId: 'cme',
+        organizerName: 'Canadian Manufacturers & Exporters',
+        isFree: false,
+        country: 'CA',
+        eventType: event.eventType as CMEEvent['eventType']
+      };
+    });
+    
+    console.log(`✅ CME: Processed ${formattedEvents.length} events`);
+    return formattedEvents;
     
   } catch (error) {
-    console.error('❌ CME scraping failed:', error);
+    console.error('❌ CME Puppeteer scraping failed:', error);
+    if (browser) {
+      await browser.close();
+    }
     return [];
   }
 }

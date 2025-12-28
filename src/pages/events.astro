@@ -229,17 +229,17 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
     
     let filtered = [...allEvents];
     
-    // Filter by country
+    // Filter by country FIRST
     if (currentCountry !== 'all') {
       filtered = filtered.filter(e => e.country === currentCountry);
     }
     
-    // Filter by organization
+    // Filter by organization SECOND (applies to both upcoming and on-demand)
     if (organizer) {
       filtered = filtered.filter(e => e.organizerId === organizer);
     }
     
-    // Filter by keyword
+    // Filter by keyword THIRD
     if (keyword) {
       filtered = filtered.filter(e =>
         e.title.toLowerCase().includes(keyword) ||
@@ -248,11 +248,11 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
       );
     }
     
-    // Filter by timeframe
+    // Filter by timeframe LAST
     const now = new Date();
     
     if (timeframe === 'on-demand') {
-      // Show only on-demand events (far future dates or marked as on-demand)
+      // Show only on-demand events (organization filter already applied above)
       filtered = filtered.filter(event => {
         if (!event) return false;
         const isOnDemand = (event.location && event.location.toLowerCase().includes('on-demand')) ||

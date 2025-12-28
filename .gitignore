@@ -35,3 +35,4 @@ Thumbs.db
 # Next.js (not needed for Astro)
 .next/
 next-env.d.ts
+.vercel
