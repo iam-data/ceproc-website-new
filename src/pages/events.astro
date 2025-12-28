@@ -82,6 +82,7 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
                   <option value="this-week">This Week</option>
                   <option value="this-month">This Month</option>
                   <option value="next-3-months">Next 3 Months</option>
+                  <option value="on-demand">On-Demand (Watch Anytime)</option>
                 </select>
               </div>
               
@@ -249,28 +250,51 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
     
     // Filter by timeframe
     const now = new Date();
-    filtered = filtered.filter(event => {
-      const eventDate = new Date(event.startDate);
+    
+    if (timeframe === 'on-demand') {
+      // Show only on-demand events (far future dates or marked as on-demand)
+      filtered = filtered.filter(event => {
+        if (!event) return false;
+        const isOnDemand = (event.location && event.location.toLowerCase().includes('on-demand')) ||
+                          (event.title && event.title.toLowerCase().includes('on-demand')) ||
+                          (event.startDate && new Date(event.startDate) > new Date('2030-01-01'));
+        return isOnDemand;
+      });
+    } else {
+      // Exclude on-demand events from regular filters
+      filtered = filtered.filter(event => {
+        if (!event) return false;
+        const isOnDemand = (event.location && event.location.toLowerCase().includes('on-demand')) ||
+                          (event.title && event.title.toLowerCase().includes('on-demand')) ||
+                          (event.startDate && new Date(event.startDate) > new Date('2030-01-01'));
+        return !isOnDemand;
+      });
       
-      switch (timeframe) {
-        case 'this-week': {
-          const endOfWeek = new Date(now);
-          endOfWeek.setDate(endOfWeek.getDate() + 7);
-          return eventDate >= now && eventDate <= endOfWeek;
+      // Apply regular time filters
+      filtered = filtered.filter(event => {
+        if (!event || !event.startDate) return false;
+        const eventDate = new Date(event.startDate);
+        
+        switch (timeframe) {
+          case 'this-week': {
+            const endOfWeek = new Date(now);
+            endOfWeek.setDate(endOfWeek.getDate() + 7);
+            return eventDate >= now && eventDate <= endOfWeek;
+          }
+          case 'this-month': {
+            const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+            return eventDate >= now && eventDate <= endOfMonth;
+          }
+          case 'next-3-months': {
+            const end3Months = new Date(now);
+            end3Months.setMonth(end3Months.getMonth() + 3);
+            return eventDate >= now && eventDate <= end3Months;
+          }
+          default:
+            return eventDate >= now;
         }
-        case 'this-month': {
-          const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-          return eventDate >= now && eventDate <= endOfMonth;
-        }
-        case 'next-3-months': {
-          const end3Months = new Date(now);
-          end3Months.setMonth(end3Months.getMonth() + 3);
-          return eventDate >= now && eventDate <= end3Months;
-        }
-        default:
-          return eventDate >= now;
-      }
-    });
+      });
+    }
     
     displayEvents(filtered);
   }
