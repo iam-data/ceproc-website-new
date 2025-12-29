@@ -17,6 +17,7 @@ export const GET: APIRoute = async ({ request }) => {
     
     const events = await scrapeCME();
     
+    //console.log(`✅ Scraped ${events.length} CME events`);
     console.log(`✅ Scraped ${events.length} CME events`);
     
     // Save to database
