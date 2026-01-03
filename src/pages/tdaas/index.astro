@@ -1,0 +1,261 @@
+---
+// src/pages/tdaas/index.astro
+import Layout from '../../layouts/Layout.astro';
+import DatasetCard from '../../components/tdaas/DatasetCard.astro';
+
+const pageTitle = "Trade Data as a Service (TDaaS) | CEPROC";
+const pageDescription = "Access real-time Canadian international trade data, analytics, and market insights to drive your export strategy";
+
+// Dataset definitions
+const datasets = [
+  {
+    id: 'trade-balance',
+    icon: '📊',
+    title: 'Trade Balance Trends',
+    description: 'Monthly import/export balance analysis showing Canada\'s trade position over time',
+    value: 'Identify surplus/deficit patterns and seasonal trends to optimize timing',
+    color: 'blue',
+    category: 'Overview'
+  },
+  {
+    id: 'top-markets',
+    icon: '🌎',
+    title: 'Top Export Markets',
+    description: 'Discover Canada\'s largest export destinations and emerging market opportunities',
+    value: 'Target high-potential markets for expansion and diversification',
+    color: 'green',
+    category: 'Markets'
+  },
+  {
+    id: 'leading-commodities',
+    icon: '📦',
+    title: 'Leading Export Commodities',
+    description: 'Track performance of Canada\'s top export products and commodity trends',
+    value: 'Benchmark your products against national performance metrics',
+    color: 'purple',
+    category: 'Commodities'
+  },
+  {
+    id: 'import-sources',
+    icon: '🚢',
+    title: 'Top Import Sources',
+    description: 'Analyze where Canada sources its imports and supply chain dependencies',
+    value: 'Identify supply chain opportunities and competitive intelligence',
+    color: 'orange',
+    category: 'Markets'
+  },
+  {
+    id: 'growth-markets',
+    icon: '📈',
+    title: 'Fastest Growing Markets',
+    description: 'Markets with accelerating trade growth over the past 12-24 months',
+    value: 'Be first to enter high-growth emerging markets',
+    color: 'teal',
+    category: 'Markets'
+  },
+  {
+    id: 'diversification',
+    icon: '⚖️',
+    title: 'Trade Diversification Index',
+    description: 'Measure Canada\'s market concentration and diversification progress',
+    value: 'Understand systemic risks and diversification strategies',
+    color: 'indigo',
+    category: 'Overview'
+  },
+  {
+    id: 'provincial-exports',
+    icon: '🗺️',
+    title: 'Provincial Export Performance',
+    description: 'Compare export performance across Canadian provinces and territories',
+    value: 'Understand regional strengths and competitive advantages',
+    color: 'red',
+    category: 'Regional'
+  },
+  {
+    id: 'sector-analysis',
+    icon: '🏭',
+    title: 'Sector-by-Sector Analysis',
+    description: 'Deep dive into specific industry sectors and their trade performance',
+    value: 'Industry-specific insights for strategic planning',
+    color: 'yellow',
+    category: 'Sectors'
+  },
+  {
+    id: 'trade-agreements',
+    icon: '🤝',
+    title: 'Trade Agreement Impact',
+    description: 'Measure the impact of FTAs on bilateral trade flows',
+    value: 'Leverage preferential market access opportunities',
+    color: 'pink',
+    category: 'Policy'
+  }
+];
+---
+
+<Layout title={pageTitle}>
+  <!-- Hero Section (Blue Gradient like Events page) -->
+  <section class="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <div class="inline-block bg-blue-700 bg-opacity-50 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+        🚀 CEPROC Core Service
+      </div>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+        Trade Data as a Service
+      </h1>
+      <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto leading-relaxed">
+        Transform Canadian international trade data into actionable insights that drive export growth and market expansion
+      </p>
+      
+      <!-- Quick Stats -->
+      <div class="grid grid-cols-3 gap-8 max-w-2xl mx-auto mt-12">
+        <div>
+          <div class="text-3xl font-bold">200+</div>
+          <div class="text-sm opacity-80">Countries</div>
+        </div>
+        <div>
+          <div class="text-3xl font-bold">20+</div>
+          <div class="text-sm opacity-80">Years of Data</div>
+        </div>
+        <div>
+          <div class="text-3xl font-bold">5,000+</div>
+          <div class="text-sm opacity-80">Commodities</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content (White Background) -->
+  <section class="bg-white py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      
+      <!-- Introduction Card -->
+      <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-8 mb-12 shadow-sm">
+        <div class="flex flex-col md:flex-row items-start gap-6">
+          <div class="text-5xl flex-shrink-0">💡</div>
+          <div class="flex-1">
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">
+              Why Trade Data Matters for Your Business
+            </h2>
+            <p class="text-gray-700 text-lg leading-relaxed mb-4">
+              Make data-driven decisions with real-time insights into Canadian trade flows, 
+              market opportunities, and competitive intelligence. Our curated datasets help 
+              you identify growth markets, track trade trends, and benchmark performance against national averages.
+            </p>
+            <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+              <div class="flex items-center gap-2 text-gray-800">
+                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="font-medium text-sm">Real-time Updates</span>
+              </div>
+              <div class="flex items-center gap-2 text-gray-800">
+                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="font-medium text-sm">Government Sources</span>
+              </div>
+              <div class="flex items-center gap-2 text-gray-800">
+                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="font-medium text-sm">Interactive Charts</span>
+              </div>
+              <div class="flex items-center gap-2 text-gray-800">
+                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="font-medium text-sm">Export Ready</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dataset Section Title -->
+      <div class="mb-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Explore Trade Datasets</h2>
+        <p class="text-gray-600 text-lg">Click any card below to view interactive charts and download data</p>
+      </div>
+
+      <!-- Dataset Cards Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {datasets.map(dataset => (
+          <DatasetCard {...dataset} />
+        ))}
+      </div>
+
+      <!-- Custom Data Requests Section -->
+      <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl p-8 md:p-12 text-white text-center shadow-lg">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-3xl font-bold mb-4">Need Custom Trade Intelligence?</h2>
+          <p class="text-lg mb-6 opacity-90 leading-relaxed">
+            Looking for specific commodity analysis, custom market reports, or tailored trade data? 
+            Our team can create custom datasets and analytics to match your exact business needs.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href="/contact?subject=Custom%20Trade%20Data" 
+              class="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-md"
+            >
+              Request Custom Data
+            </a>
+            <a 
+              href="/resources" 
+              class="inline-block bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-600 transition-colors border-2 border-white"
+            >
+              View All Resources
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Sources Section -->
+      <div class="mt-12 pt-12 border-t border-gray-200">
+        <h3 class="text-xl font-bold text-gray-900 mb-4">Our Data Sources</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="flex items-start gap-4">
+            <div class="bg-red-100 p-3 rounded-lg">
+              <span class="text-2xl">🍁</span>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-900">Statistics Canada</h4>
+              <p class="text-gray-600 text-sm">Official Canadian international merchandise trade data, updated monthly</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="bg-blue-100 p-3 rounded-lg">
+              <span class="text-2xl">🇺🇸</span>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-900">U.S. Census Bureau</h4>
+              <p class="text-gray-600 text-sm">USA Trade Online for bilateral Canada-US trade analysis</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Modal Container (for Phase 2 - chart modals will go here) -->
+  <div id="chart-modal-container"></div>
+</Layout>
+
+<script>
+  // Handle dataset card clicks - Phase 2 will add modal functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('[data-dataset-id]');
+    
+    cards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        e.preventDefault();
+        const datasetId = card.getAttribute('data-dataset-id');
+        
+        // Phase 2: Open interactive chart modal
+        // For now, just log to console
+        console.log('Dataset clicked:', datasetId);
+        console.log('Chart modal functionality coming in Phase 2');
+      });
+    });
+  });
+</script>

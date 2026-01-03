@@ -1,0 +1,81 @@
+---
+// src/components/tdaas/DatasetCard.astro
+interface Props {
+  id: string;
+  icon: string;
+  title: string;
+  description: string;
+  value: string;
+  color: 'blue' | 'green' | 'purple' | 'orange' | 'teal' | 'indigo' | 'red' | 'yellow' | 'pink';
+  category: string;
+}
+
+const { id, icon, title, description, value, color, category } = Astro.props;
+
+// Color mapping for the value proposition box
+const colorClasses = {
+  blue: 'bg-blue-50 border-blue-500 text-blue-900',
+  green: 'bg-green-50 border-green-500 text-green-900',
+  purple: 'bg-purple-50 border-purple-500 text-purple-900',
+  orange: 'bg-orange-50 border-orange-500 text-orange-900',
+  teal: 'bg-teal-50 border-teal-500 text-teal-900',
+  indigo: 'bg-indigo-50 border-indigo-500 text-indigo-900',
+  red: 'bg-red-50 border-red-500 text-red-900',
+  yellow: 'bg-yellow-50 border-yellow-500 text-yellow-900',
+  pink: 'bg-pink-50 border-pink-500 text-pink-900',
+};
+
+const valueClass = colorClasses[color] || colorClasses.blue;
+---
+
+<div 
+  class="border border-gray-200 rounded-xl p-6 hover:shadow-xl hover:border-blue-300 transition-all duration-300 cursor-pointer bg-white group"
+  data-dataset-id={id}
+>
+  <!-- Category Badge -->
+  <div class="flex justify-between items-start mb-3">
+    <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+      {category}
+    </span>
+    <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+    </svg>
+  </div>
+
+  <!-- Icon -->
+  <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
+    {icon}
+  </div>
+
+  <!-- Title -->
+  <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+    {title}
+  </h3>
+
+  <!-- Description -->
+  <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+    {description}
+  </p>
+
+  <!-- Value Proposition -->
+  <div class={`border-l-4 p-3 mb-4 ${valueClass}`}>
+    <p class="text-sm font-medium flex items-start gap-2">
+      <span class="flex-shrink-0">💡</span>
+      <span><strong>Value:</strong> {value}</span>
+    </p>
+  </div>
+
+  <!-- CTA Button -->
+  <button class="w-full text-blue-600 hover:text-white hover:bg-blue-600 border border-blue-600 px-4 py-2 rounded-lg font-medium flex items-center justify-center gap-2 transition-all duration-300 group-hover:shadow-md">
+    <span>View Analytics</span>
+    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+    </svg>
+  </button>
+</div>
+
+<style>
+  [data-dataset-id]:hover {
+    transform: translateY(-4px);
+  }
+</style>

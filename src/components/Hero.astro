@@ -8,7 +8,7 @@ const colorMap = {
 };
 ---
 
-<section class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-24 pb-32">
+<section class="relative overflow-hidden bg-gradient-to-br from-blue-600 to-blue-800 pt-24 pb-32">
   <!-- Animated Background Elements -->
   <div class="absolute inset-0 overflow-hidden">
     <div class="absolute -top-40 -right-40 w-80 h-80 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
@@ -29,11 +29,11 @@ const colorMap = {
                 href={badge.url} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                class={`flex items-center space-x-2 px-3 py-2 rounded-lg bg-slate-800 border ${colors.border} ${colors.hover} hover:bg-slate-700 transition-all group`}
+                class={`flex items-center space-x-2 px-3 py-2 rounded-lg bg-blue-700 bg-opacity-50 border ${colors.border} ${colors.hover} hover:bg-blue-600 hover:bg-opacity-50 transition-all group`}
               >
                 <div class={`h-2 w-2 rounded-full ${colors.bg} group-hover:scale-125 transition-transform`}></div>
                 <span class={`${colors.text} font-semibold`}>{badge.name}</span>
-                <span class="hidden sm:inline text-slate-400 group-hover:text-slate-300">{badge.fullName}</span>
+                <span class="hidden sm:inline text-blue-200 group-hover:text-white">{badge.fullName}</span>
               </a>
             );
           })}
@@ -43,17 +43,17 @@ const colorMap = {
         <div class="space-y-6">
           <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-7xl leading-tight">
             {heroContent.headline.main}
-            <span class="block mt-2 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <span class="block mt-2 text-cyan-300">
               {heroContent.headline.highlight}
             </span>
           </h1>
-          <h2 class="text-xl text-cyan-300 font-medium sm:text-2xl">
+          <h2 class="text-xl text-cyan-200 font-medium sm:text-2xl">
             {heroContent.subheadline}
           </h2>
         </div>
 
         <!-- Description -->
-        <p class="text-lg text-slate-300 leading-relaxed">
+        <p class="text-lg text-blue-100 leading-relaxed opacity-90">
           {heroContent.description}
         </p>
 
@@ -61,14 +61,14 @@ const colorMap = {
         <div class="flex flex-col sm:flex-row gap-4">
           {heroContent.ctas.map((cta) => (
             cta.primary ? (
-              <a href={cta.link} class="group inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 text-base font-semibold text-white shadow-2xl shadow-cyan-500/30 hover:shadow-cyan-500/50 hover:scale-105 transition-all">
+              <a href={cta.link} class="group inline-flex items-center justify-center rounded-xl bg-white text-blue-600 px-8 py-4 text-base font-semibold shadow-xl hover:shadow-2xl hover:scale-105 transition-all hover:bg-gray-100">
                 {cta.text}
                 <svg class="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                 </svg>
               </a>
             ) : (
-              <a href={cta.link} class="inline-flex items-center justify-center rounded-xl border-2 border-slate-600 bg-slate-800/50 backdrop-blur px-8 py-4 text-base font-semibold text-white hover:border-cyan-400 hover:bg-slate-700/50 transition-all">
+              <a href={cta.link} class="inline-flex items-center justify-center rounded-xl border-2 border-blue-400 bg-blue-700 bg-opacity-30 backdrop-blur px-8 py-4 text-base font-semibold text-white hover:border-white hover:bg-blue-600 hover:bg-opacity-50 transition-all">
                 {cta.text}
               </a>
             )
@@ -76,13 +76,13 @@ const colorMap = {
         </div>
 
         <!-- Stats -->
-        <div class="grid grid-cols-3 gap-6 pt-8 border-t border-slate-700">
+        <div class="grid grid-cols-3 gap-6 pt-8 border-t border-blue-500 border-opacity-30">
           {heroContent.stats.map((stat) => (
             <div class="group cursor-default">
-              <div class={`text-4xl font-bold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent group-hover:scale-110 transition-transform`}>
+              <div class="text-4xl font-bold text-white group-hover:scale-110 transition-transform">
                 {stat.number}
               </div>
-              <div class="text-sm text-slate-400 mt-1">{stat.label}</div>
+              <div class="text-sm text-blue-200 mt-1">{stat.label}</div>
             </div>
           ))}
         </div>
@@ -90,18 +90,19 @@ const colorMap = {
 
       <!-- Visual -->
       <div class="relative h-96 lg:h-[600px]">
-        <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 backdrop-blur-sm"></div>
-        <div class="relative h-full rounded-3xl bg-gradient-to-br from-slate-800 to-slate-900 shadow-2xl p-8 flex items-center justify-center border border-slate-700">
+        <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 backdrop-blur-sm"></div>
+        <div class="relative h-full rounded-3xl bg-gradient-to-br from-blue-700 to-blue-900 shadow-2xl p-8 flex items-center justify-center border border-blue-500 border-opacity-30">
           <div class="text-center space-y-8">
-            <div class="relative mx-auto h-40 w-40 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-2xl shadow-cyan-500/50 animate-pulse-slow">
-              <svg class="h-20 w-20 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            <div class="relative mx-auto h-40 w-40 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center shadow-2xl shadow-cyan-500/50 animate-pulse-slow">
+              <!-- Better Globe/World Icon -->
+              <svg class="h-20 w-20 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 2.944m7.843 5.638a9 9 0 01-15.686 0m15.686 0A11.953 11.953 0 0112 2.944m-7.843 5.638a9 9 0 0115.686 0" />
               </svg>
-              <div class="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 animate-ping opacity-20"></div>
+              <div class="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 animate-ping opacity-20"></div>
             </div>
             <div class="space-y-3">
               <p class="text-2xl font-bold text-white">{heroContent.visual.title}</p>
-              <p class="text-slate-400 text-lg">{heroContent.visual.subtitle}</p>
+              <p class="text-blue-200 text-lg opacity-90">{heroContent.visual.subtitle}</p>
             </div>
           </div>
         </div>

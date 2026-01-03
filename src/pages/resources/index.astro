@@ -1,0 +1,217 @@
+---
+// src/pages/resources/index.astro
+import Layout from '@layouts/Layout.astro';
+
+const pageTitle = "Resources | CEPROC";
+const pageDescription = "Access export guides, market reports, tools, and insights to help your business succeed globally";
+
+const resources = [
+  {
+    category: "Trade Data & Analytics",
+    icon: "📊",
+    items: [
+      {
+        title: "Trade Data as a Service (TDaaS)",
+        description: "Interactive trade data analytics and market insights",
+        link: "/tdaas",
+        badge: "Core Service"
+      }
+    ]
+  },
+  {
+    category: "Market Intelligence",
+    icon: "📑",
+    items: [
+      {
+        title: "Market Reports",
+        description: "In-depth analysis of key export markets and sectors",
+        link: "/resources/market-reports",
+        badge: "Coming Soon"
+      },
+      {
+        title: "Country Profiles",
+        description: "Comprehensive guides to trading with specific countries",
+        link: "/resources/country-profiles",
+        badge: "Coming Soon"
+      }
+    ]
+  },
+  {
+    category: "Export Guides",
+    icon: "📘",
+    items: [
+      {
+        title: "Getting Started with Exporting",
+        description: "Step-by-step guide for first-time exporters",
+        link: "/resources/export-guides/getting-started",
+        badge: "Coming Soon"
+      },
+      {
+        title: "Export Documentation",
+        description: "Understanding forms, certificates, and paperwork",
+        link: "/resources/export-guides/documentation",
+        badge: "Coming Soon"
+      },
+      {
+        title: "Logistics & Shipping",
+        description: "Navigate international shipping and customs",
+        link: "/resources/export-guides/logistics",
+        badge: "Coming Soon"
+      }
+    ]
+  },
+  {
+    category: "Tools & Calculators",
+    icon: "🛠️",
+    items: [
+      {
+        title: "Market Opportunity Calculator",
+        description: "Assess export potential for your products",
+        link: "/resources/tools/opportunity-calculator",
+        badge: "Coming Soon"
+      },
+      {
+        title: "HS Code Lookup",
+        description: "Find the right tariff classification for your products",
+        link: "/resources/tools/hs-code-lookup",
+        badge: "Coming Soon"
+      },
+      {
+        title: "Shipping Cost Estimator",
+        description: "Estimate international shipping costs",
+        link: "/resources/tools/shipping-estimator",
+        badge: "Coming Soon"
+      }
+    ]
+  },
+  {
+    category: "Success Stories",
+    icon: "🎯",
+    items: [
+      {
+        title: "Case Studies",
+        description: "Learn from successful Canadian exporters",
+        link: "/resources/case-studies",
+        badge: "Coming Soon"
+      },
+      {
+        title: "Export Awards",
+        description: "Recognize excellence in international trade",
+        link: "/resources/awards",
+        badge: "Coming Soon"
+      }
+    ]
+  }
+];
+---
+
+<Layout title={pageTitle}>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+        Export Resources
+      </h1>
+      <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto leading-relaxed">
+        Everything you need to succeed in international markets — from trade data to expert guides
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="bg-white py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      
+      <!-- Introduction -->
+      <div class="max-w-3xl mx-auto text-center mb-16">
+        <p class="text-lg text-gray-700 leading-relaxed">
+          CEPROC provides Canadian businesses with the tools, data, and knowledge needed to 
+          navigate international trade successfully. Explore our resources below.
+        </p>
+      </div>
+
+      <!-- Resource Categories -->
+      {resources.map((category, idx) => (
+        <div class="mb-16">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="text-4xl">{category.icon}</span>
+            <h2 class="text-3xl font-bold text-gray-900">{category.category}</h2>
+          </div>
+          
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {category.items.map((item) => (
+              <a 
+                href={item.link}
+                class={`block border rounded-xl p-6 transition-all duration-300 ${
+                  item.badge === 'Core Service' 
+                    ? 'border-blue-300 bg-blue-50 hover:shadow-xl hover:border-blue-400' 
+                    : item.badge === 'Coming Soon'
+                    ? 'border-gray-200 bg-gray-50 hover:bg-gray-100 cursor-not-allowed'
+                    : 'border-gray-200 hover:shadow-lg hover:border-blue-300'
+                }`}
+              >
+                <div class="flex justify-between items-start mb-3">
+                  <h3 class="text-xl font-semibold text-gray-900">{item.title}</h3>
+                  {item.badge && (
+                    <span class={`text-xs font-semibold px-2 py-1 rounded-full ${
+                      item.badge === 'Core Service' 
+                        ? 'bg-blue-200 text-blue-800' 
+                        : 'bg-gray-200 text-gray-600'
+                    }`}>
+                      {item.badge}
+                    </span>
+                  )}
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed">{item.description}</p>
+                
+                {item.badge === 'Core Service' && (
+                  <div class="mt-4 flex items-center text-blue-600 font-medium text-sm">
+                    Explore Now
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                  </div>
+                )}
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <!-- CTA Section -->
+      <div class="mt-16 bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl p-8 md:p-12 text-white text-center">
+        <h2 class="text-3xl font-bold mb-4">Need Personalized Support?</h2>
+        <p class="text-lg mb-6 opacity-90 leading-relaxed max-w-2xl mx-auto">
+          Our export advisors can help you develop a custom strategy tailored to your business goals and target markets.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/contact" 
+            class="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-md"
+          >
+            Contact an Advisor
+          </a>
+          <a 
+            href="/events" 
+            class="inline-block bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-600 transition-colors border-2 border-white"
+          >
+            View Upcoming Events
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Prevent clicking on "Coming Soon" items */
+  a[href*="Coming Soon"] {
+    pointer-events: none;
+  }
+  
+  /* Re-enable pointer events for Core Service items */
+  a[href="/tdaas"] {
+    pointer-events: auto;
+  }
+</style>

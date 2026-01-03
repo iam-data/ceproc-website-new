@@ -1,0 +1,77 @@
+{
+  "logo": {
+    "text": "CEPROC",
+    "tagline": "Canadian Export Council",
+    "icon": "globe"
+  },
+  "mainMenu": [
+    {
+      "id": "solutions",
+      "label": "Our Solutions",
+      "url": "/solutions",
+      "type": "link"
+    },
+    {
+      "id": "markets",
+      "label": "Markets & Insights",
+      "url": "/markets",
+      "type": "link"
+    },
+    {
+      "id": "tdaas",
+      "label": "Trade Data (TDaaS)",
+      "url": "/tdaas",
+      "type": "link",
+      "highlighted": true
+    },
+    {
+      "id": "events",
+      "label": "Events & Missions",
+      "url": "/events",
+      "type": "link"
+    },
+    {
+      "id": "resources",
+      "label": "Resources",
+      "type": "dropdown",
+      "items": [
+        {
+          "label": "Market Reports",
+          "url": "/resources/market-reports",
+          "icon": "📑",
+          "description": "Industry Analysis"
+        },
+        {
+          "label": "Export Guides",
+          "url": "/resources/export-guides",
+          "icon": "📘",
+          "description": "How-to Resources"
+        },
+        {
+          "label": "Tools & Calculators",
+          "url": "/resources/tools",
+          "icon": "🛠️",
+          "description": "Planning Tools"
+        },
+        {
+          "label": "Success Stories",
+          "url": "/resources/case-studies",
+          "icon": "🎯",
+          "description": "Case Studies"
+        }
+      ]
+    },
+    {
+      "id": "about",
+      "label": "About Us",
+      "url": "/about",
+      "type": "link"
+    },
+    {
+      "id": "contact",
+      "label": "Contact",
+      "url": "/contact",
+      "type": "link"
+    }
+  ]
+}

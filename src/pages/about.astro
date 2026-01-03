@@ -1,0 +1,223 @@
+---
+// src/pages/about.astro
+import Layout from '../layouts/Layout.astro';
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import { marked } from 'marked';
+
+// Read all content files
+const contentPath = join(process.cwd(), 'content');
+const markdownContent = await readFile(join(contentPath, 'about.md'), 'utf-8');
+const commitments = JSON.parse(await readFile(join(contentPath, 'about-commitments.json'), 'utf-8'));
+const features = JSON.parse(await readFile(join(contentPath, 'about-features.json'), 'utf-8'));
+const stats = JSON.parse(await readFile(join(contentPath, 'about-stats.json'), 'utf-8'));
+const values = JSON.parse(await readFile(join(contentPath, 'about-values.json'), 'utf-8'));
+
+// Parse frontmatter
+const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
+const match = markdownContent.match(frontmatterRegex);
+
+let frontmatter: any = {};
+let content = markdownContent;
+
+if (match) {
+  const frontmatterText = match[1];
+  const lines = frontmatterText.split('\n');
+  lines.forEach(line => {
+    const [key, ...valueParts] = line.split(':');
+    if (key && valueParts.length) {
+      frontmatter[key.trim()] = valueParts.join(':').trim();
+    }
+  });
+  content = match[2];
+}
+
+const pageTitle = frontmatter.title || "About CEPROC";
+const pageSubtitle = frontmatter.subtitle || "Your Strategic Partner in Global Trade";
+---
+
+<Layout title={pageTitle}>
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-blue-600 to-blue-800 pt-32 pb-24">
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute -top-40 -right-40 w-80 h-80 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+      <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto">
+        <div class="inline-flex items-center rounded-full bg-blue-700 bg-opacity-50 border border-blue-400 border-opacity-30 px-4 py-2 text-sm font-semibold text-cyan-300 mb-6">
+          Est. 2025
+        </div>
+        <h1 class="text-5xl font-bold text-white mb-6 lg:text-6xl">
+          {pageTitle}
+        </h1>
+        <p class="text-xl text-blue-100 opacity-90">
+          {pageSubtitle}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="py-24 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      
+      <!-- Who We Are -->
+      <div class="max-w-4xl mx-auto mb-20">
+        <h2 class="text-4xl font-bold text-slate-900 mb-6">Who We Are</h2>
+        <div class="space-y-4 text-lg text-slate-700 leading-relaxed">
+          <p>
+            The Canada Export Promotion Council (CEPROC.CA) is the authoritative, private-sector body dedicated to advancing Canada's interests in the global marketplace. We don't just facilitate trade; we shape the conditions that make Canadian exports resilient, compliant, and globally competitive.
+          </p>
+          <p>
+            Born from the need for a unified voice and a strategic approach to market expansion, our council serves as the critical link between government policy, industry innovation, and global demand.
+          </p>
+        </div>
+      </div>
+
+      <!-- Core Values Section -->
+      <div class="mb-20">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold text-slate-900 mb-4">Our Core Values</h2>
+          <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+            Our mission is driven by three fundamental commitments that guide everything we do
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {values.values.map((value: any, index: number) => {
+            const gradients = [
+              'from-cyan-500 to-blue-600',
+              'from-blue-500 to-purple-600',
+              'from-purple-500 to-pink-600'
+            ];
+            return (
+              <div class="group bg-white rounded-3xl p-8 border-2 border-slate-200 hover:border-transparent hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 relative overflow-hidden">
+                <div class={`absolute inset-0 bg-gradient-to-br ${gradients[index]} opacity-0 group-hover:opacity-5 transition-opacity`}></div>
+                <div class={`inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${gradients[index]} shadow-lg mb-6`}>
+                  <span class="text-3xl">{value.icon}</span>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900 mb-3">{value.title}</h3>
+                <p class="text-slate-600 leading-relaxed">{value.description}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <!-- What Makes Us Unique -->
+      <div class="mb-20 max-w-5xl mx-auto">
+        <h2 class="text-4xl font-bold text-slate-900 mb-6 text-center">What Makes CEPROC.CA Unique?</h2>
+        <p class="text-xl text-slate-600 mb-12 text-center max-w-3xl mx-auto">
+          We distinguish ourselves by focusing on the pillars that matter most to serious B2B export success: <strong>Policy and Connectivity</strong>
+        </p>
+
+        <div class="space-y-8">
+          {features.features.map((feature: any, index: number) => {
+            const colors = ['blue', 'green', 'purple'];
+            const bgColors = ['bg-blue-50', 'bg-green-50', 'bg-purple-50'];
+            const borderColors = ['border-blue-500', 'border-green-500', 'border-purple-500'];
+            return (
+              <div class={`${bgColors[index]} rounded-2xl p-8 border-l-4 ${borderColors[index]}`}>
+                <div class="flex items-start gap-4">
+                  <div class="text-4xl flex-shrink-0">{feature.icon}</div>
+                  <div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-3">{feature.title}</h3>
+                    <p class="text-slate-700 text-lg leading-relaxed">{feature.description}</p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <!-- Impact Stats -->
+      <div class="mb-20">
+        <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-12 shadow-2xl border border-slate-700">
+          <h2 class="text-4xl font-bold text-white mb-12 text-center">Our Impact</h2>
+          
+          <div class="grid md:grid-cols-4 gap-8">
+            {stats.stats.map((stat: any, index: number) => {
+              const gradients = [
+                'from-cyan-400 to-blue-500',
+                'from-green-400 to-emerald-500',
+                'from-purple-400 to-pink-500',
+                'from-orange-400 to-red-500'
+              ];
+              return (
+                <div class="text-center group cursor-default">
+                  <div class={`text-5xl font-bold bg-gradient-to-r ${gradients[index]} bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform`}>
+                    {stat.value}
+                  </div>
+                  <div class="text-slate-300 text-sm font-medium">{stat.label}</div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      <!-- Our Commitment -->
+      <div class="mb-20 max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold text-slate-900 mb-4">Our Commitment to You</h2>
+          <p class="text-xl text-slate-600">
+            We serve every stakeholder in the Canadian trade ecosystem
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+          {commitments.commitments.map((commitment: any, index: number) => {
+            const bgColors = ['bg-blue-50', 'bg-green-50', 'bg-purple-50'];
+            const borderColors = ['border-blue-200', 'border-green-200', 'border-purple-200'];
+            return (
+              <div class={`${bgColors[index]} rounded-2xl p-6 border-2 ${borderColors[index]}`}>
+                <div class="text-4xl mb-4">{commitment.icon}</div>
+                <h4 class="font-bold text-slate-900 text-xl mb-3">{commitment.title}</h4>
+                <p class="text-slate-700 leading-relaxed">{commitment.description}</p>
+              </div>
+            );
+          })}
+        </div>
+
+        <p class="text-lg text-slate-700 mt-12 text-center max-w-3xl mx-auto leading-relaxed">
+          Whether you are a Canadian producer seeking to scale, a foreign buyer demanding verified quality, or a government stakeholder needing expert insight, CEPROC.CA is committed to being the most authoritative, reliable, and effective resource in Canadian trade.
+        </p>
+      </div>
+
+      <!-- Closing Statement -->
+      <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl p-12 md:p-16 text-center text-white shadow-2xl relative overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden">
+          <div class="absolute -top-20 -right-20 w-64 h-64 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+          <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+        </div>
+        
+        <div class="relative z-10">
+          <h2 class="text-4xl md:text-5xl font-bold mb-4">
+            We are the engine room of Canada's global trade ambition
+          </h2>
+          <p class="text-2xl text-blue-100 mb-8 opacity-90">
+            Not just a council — a strategic force.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href="/solutions" 
+              class="inline-block bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors shadow-lg text-lg"
+            >
+              Explore Solutions
+            </a>
+            <a 
+              href="/contact" 
+              class="inline-block bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-600 transition-colors border-2 border-white text-lg"
+            >
+              Get in Touch
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</Layout>

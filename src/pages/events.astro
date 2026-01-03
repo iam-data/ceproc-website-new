@@ -1,7 +1,4 @@
 ---
-// src/pages/events.astro
-// Client-side filtering - works perfectly!
-
 import Layout from '../layouts/Layout.astro';
 
 const pageTitle = 'International Business Events';
@@ -75,13 +72,13 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
                 </select>
                 
                 <select 
-                  id="filter-timeframe"
+                  id="filter-event-type"
                   class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="upcoming">Upcoming Events</option>
-                  <option value="this-week">This Week</option>
-                  <option value="this-month">This Month</option>
-                  <option value="next-3-months">Next 3 Months</option>
+                  <option value="">All Event Types</option>
+                  <option value="webinar">Webinars</option>
+                  <option value="training">Training Sessions</option>
+                  <option value="conference">Conferences & Events</option>
                   <option value="on-demand">On-Demand (Watch Anytime)</option>
                 </select>
               </div>
@@ -119,8 +116,8 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
 
     <!-- Events List -->
     <section class="container mx-auto px-4 py-12">
-      <div id="events-container" class="hidden space-y-6">
-        <!-- Events will be inserted here -->
+      <div id="events-container" class="hidden space-y-12">
+        <!-- Events grouped by month will be inserted here -->
       </div>
       
       <!-- No Results -->
@@ -221,25 +218,41 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
     `;
   }
 
-  // CLIENT-SIDE FILTERING - Works perfectly!
+  function isOnDemand(event: any): boolean {
+    return (event.location && event.location.toLowerCase().includes('on-demand')) ||
+           (event.title && event.title.toLowerCase().includes('on-demand')) ||
+           (event.startDate && new Date(event.startDate) > new Date('2030-01-01'));
+  }
+
+  function getMonthYear(date: Date): string {
+    return date.toLocaleDateString('en-CA', { year: 'numeric', month: 'long' });
+  }
+
   function filterEvents() {
     const keyword = (document.getElementById('search-keyword') as HTMLInputElement)?.value.toLowerCase() || '';
     const organizer = (document.getElementById('filter-organizer') as HTMLSelectElement)?.value || '';
-    const timeframe = (document.getElementById('filter-timeframe') as HTMLSelectElement)?.value || 'upcoming';
+    const eventType = (document.getElementById('filter-event-type') as HTMLSelectElement)?.value || '';
     
     let filtered = [...allEvents];
     
-    // Filter by country FIRST
     if (currentCountry !== 'all') {
       filtered = filtered.filter(e => e.country === currentCountry);
     }
     
-    // Filter by organization SECOND (applies to both upcoming and on-demand)
     if (organizer) {
       filtered = filtered.filter(e => e.organizerId === organizer);
     }
     
-    // Filter by keyword THIRD
+    if (eventType === 'on-demand') {
+      filtered = filtered.filter(e => isOnDemand(e));
+    } else {
+      filtered = filtered.filter(e => !isOnDemand(e));
+      
+      if (eventType) {
+        filtered = filtered.filter(e => e.eventType === eventType);
+      }
+    }
+    
     if (keyword) {
       filtered = filtered.filter(e =>
         e.title.toLowerCase().includes(keyword) ||
@@ -248,58 +261,10 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
       );
     }
     
-    // Filter by timeframe LAST
-    const now = new Date();
-    
-    if (timeframe === 'on-demand') {
-      // Show only on-demand events (organization filter already applied above)
-      filtered = filtered.filter(event => {
-        if (!event) return false;
-        const isOnDemand = (event.location && event.location.toLowerCase().includes('on-demand')) ||
-                          (event.title && event.title.toLowerCase().includes('on-demand')) ||
-                          (event.startDate && new Date(event.startDate) > new Date('2030-01-01'));
-        return isOnDemand;
-      });
-    } else {
-      // Exclude on-demand events from regular filters
-      filtered = filtered.filter(event => {
-        if (!event) return false;
-        const isOnDemand = (event.location && event.location.toLowerCase().includes('on-demand')) ||
-                          (event.title && event.title.toLowerCase().includes('on-demand')) ||
-                          (event.startDate && new Date(event.startDate) > new Date('2030-01-01'));
-        return !isOnDemand;
-      });
-      
-      // Apply regular time filters
-      filtered = filtered.filter(event => {
-        if (!event || !event.startDate) return false;
-        const eventDate = new Date(event.startDate);
-        
-        switch (timeframe) {
-          case 'this-week': {
-            const endOfWeek = new Date(now);
-            endOfWeek.setDate(endOfWeek.getDate() + 7);
-            return eventDate >= now && eventDate <= endOfWeek;
-          }
-          case 'this-month': {
-            const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-            return eventDate >= now && eventDate <= endOfMonth;
-          }
-          case 'next-3-months': {
-            const end3Months = new Date(now);
-            end3Months.setMonth(end3Months.getMonth() + 3);
-            return eventDate >= now && eventDate <= end3Months;
-          }
-          default:
-            return eventDate >= now;
-        }
-      });
-    }
-    
-    displayEvents(filtered);
+    displayEvents(filtered, eventType === 'on-demand');
   }
 
-  function displayEvents(events: any[]) {
+  function displayEvents(events: any[], showingOnDemand: boolean) {
     const loadingState = document.getElementById('loading-state');
     const eventsContainer = document.getElementById('events-container');
     const noResults = document.getElementById('no-results');
@@ -308,7 +273,6 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
     
     loadingState.classList.add('hidden');
     
-    // Update stats
     const canadianEvents = events.filter(e => e.country === 'CA').length;
     const usEvents = events.filter(e => e.country === 'US').length;
     
@@ -324,7 +288,50 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
     
     eventsContainer.classList.remove('hidden');
     noResults.classList.add('hidden');
-    eventsContainer.innerHTML = events.map(event => createEventCard(event)).join('');
+    
+    if (showingOnDemand) {
+      eventsContainer.innerHTML = `
+        <div class="space-y-6">
+          <h2 class="text-3xl font-bold text-gray-800 border-b-2 border-blue-600 pb-2">
+            📺 On-Demand - Watch Anytime
+          </h2>
+          <div class="grid gap-6">
+            ${events.map(event => createEventCard(event)).join('')}
+          </div>
+        </div>
+      `;
+    } else {
+      const now = new Date();
+      const upcomingEvents = events.filter(e => new Date(e.startDate) >= now);
+      
+      upcomingEvents.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
+      
+      const groupedByMonth: Record<string, any[]> = {};
+      upcomingEvents.forEach(event => {
+        const monthYear = getMonthYear(new Date(event.startDate));
+        if (!groupedByMonth[monthYear]) {
+          groupedByMonth[monthYear] = [];
+        }
+        groupedByMonth[monthYear].push(event);
+      });
+      
+      let html = '';
+      Object.keys(groupedByMonth).forEach(monthYear => {
+        const monthEvents = groupedByMonth[monthYear];
+        html += `
+          <div class="space-y-6">
+            <h2 class="text-3xl font-bold text-gray-800 border-b-2 border-blue-600 pb-2">
+              📅 ${monthYear}
+            </h2>
+            <div class="grid gap-6">
+              ${monthEvents.map(event => createEventCard(event)).join('')}
+            </div>
+          </div>
+        `;
+      });
+      
+      eventsContainer.innerHTML = html || '<p class="text-gray-600">No upcoming events found.</p>';
+    }
   }
 
   async function loadAllEvents() {
@@ -334,7 +341,6 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
     if (!loadingState || !eventsContainer) return;
     
     try {
-      // Fetch all events (no parameters - API just returns everything)
       const response = await fetch('/api/events');
       
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -343,7 +349,7 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
       
       if (data.success && data.events) {
         allEvents = data.events;
-        filterEvents(); // Apply current filters
+        filterEvents();
       }
       
     } catch (error) {
@@ -359,7 +365,6 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
     }
   }
 
-  // Country tabs
   document.querySelectorAll('.country-tab').forEach(tab => {
     tab.addEventListener('click', (e) => {
       const target = e.currentTarget as HTMLElement;
@@ -377,7 +382,6 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
     });
   });
 
-  // Search form
   const searchForm = document.getElementById('event-search-form');
   if (searchForm) {
     searchForm.addEventListener('submit', (e) => {
@@ -386,24 +390,22 @@ const pageDescription = 'Discover export opportunities, trade missions, webinars
     });
   }
 
-  // Live filtering on dropdown change
   const organizerFilter = document.getElementById('filter-organizer');
-  const timeframeFilter = document.getElementById('filter-timeframe');
+  const eventTypeFilter = document.getElementById('filter-event-type');
   const keywordInput = document.getElementById('search-keyword');
   
   if (organizerFilter) {
     organizerFilter.addEventListener('change', filterEvents);
   }
   
-  if (timeframeFilter) {
-    timeframeFilter.addEventListener('change', filterEvents);
+  if (eventTypeFilter) {
+    eventTypeFilter.addEventListener('change', filterEvents);
   }
   
   if (keywordInput) {
     keywordInput.addEventListener('input', filterEvents);
   }
 
-  // Load events on page load
   loadAllEvents();
 </script>
 
