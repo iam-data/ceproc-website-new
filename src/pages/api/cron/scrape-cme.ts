@@ -1,7 +1,7 @@
 // src/pages/api/cron/scrape-cme.ts
 import type { APIRoute } from 'astro';
 import { scrapeCME } from '../../../scrapers/cme-scraper';
-import { saveEvents } from '../../../lib/db';
+import { saveEvents } from "../../../../lib/db";
 
 export const GET: APIRoute = async ({ request }) => {
   // Verify this is actually Vercel calling

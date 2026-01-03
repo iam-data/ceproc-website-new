@@ -2,12 +2,12 @@
 // API endpoint to list all available TDaaS datasets
 
 import type { APIRoute } from 'astro';
-import { db } from '@lib/db';
+import db from "../../../../lib/db";
 
 export const GET: APIRoute = async ({ request }) => {
   try {
     // Query datasets from database
-    const result = await db.execute(`
+    const result = await db.query(`
       SELECT 
         dataset_key,
         title,
