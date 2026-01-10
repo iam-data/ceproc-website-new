@@ -1,16 +1,20 @@
 ---
 // /src/pages/tdaas/index.astro
-// Config-driven TDaaS Hub - Reads from tdaas-datasets.json
+// 100% CONFIG-DRIVEN - Zero hardcoded content
 import Layout from '../../layouts/Layout.astro';
 import Footer from '../../components/Footer.astro';
-import datasetsConfig from '../../data/tdaas-datasets.json';
+import pageConfig from '../../data/tdaas-page-config.json';
 
-const datasets = datasetsConfig.datasets;
+// All content from config
+const { meta, hero, datasetsSection, datasets, iconMappings, colorMappings } = pageConfig;
 ---
 
-<Layout title="Trade Data as a Service (TDaaS) | CEPROC" description="Access Canada's trade data through interactive analytics and downloadable datasets">
+<Layout 
+  title={`${meta.title} | ${meta.titleSuffix}`} 
+  description={meta.description}
+>
   
-  <!-- HERO SECTION -->
+  <!-- HERO SECTION - FULLY CONFIG-DRIVEN -->
   <section class="relative overflow-hidden bg-gradient-to-br from-blue-600 to-blue-800 pt-24 pb-32">
     <!-- Animated Background -->
     <div class="absolute inset-0 overflow-hidden">
@@ -20,97 +24,83 @@ const datasets = datasetsConfig.datasets;
 
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="text-center space-y-8">
-        <!-- Badge Row -->
+        
+        <!-- Badge Row - FROM CONFIG -->
         <div class="flex justify-center items-center gap-4 flex-wrap">
-          <div class="flex items-center space-x-2 px-4 py-2 rounded-full bg-blue-700 bg-opacity-50 border border-green-500/30">
-            <div class="h-2 w-2 rounded-full bg-green-400 animate-pulse"></div>
-            <span class="text-green-400 font-semibold text-sm">Real-time Updates</span>
-          </div>
-          <div class="flex items-center space-x-2 px-4 py-2 rounded-full bg-blue-700 bg-opacity-50 border border-cyan-500/30">
-            <div class="h-2 w-2 rounded-full bg-cyan-400"></div>
-            <span class="text-cyan-400 font-semibold text-sm">Government Sources</span>
-          </div>
-          <div class="flex items-center space-x-2 px-4 py-2 rounded-full bg-blue-700 bg-opacity-50 border border-purple-500/30">
-            <div class="h-2 w-2 rounded-full bg-purple-400"></div>
-            <span class="text-purple-400 font-semibold text-sm">Interactive Charts</span>
-          </div>
-          <div class="flex items-center space-x-2 px-4 py-2 rounded-full bg-blue-700 bg-opacity-50 border border-blue-500/30">
-            <div class="h-2 w-2 rounded-full bg-blue-400"></div>
-            <span class="text-blue-400 font-semibold text-sm">Export Ready</span>
-          </div>
+          {hero.badges.map((badge) => (
+            <div class={`flex items-center space-x-2 px-4 py-2 rounded-full bg-blue-700 bg-opacity-50 border border-${badge.color}-500/30`}>
+              {badge.icon === 'pulse' && (
+                <div class={`h-2 w-2 rounded-full bg-${badge.color}-400 animate-pulse`}></div>
+              )}
+              {badge.icon !== 'pulse' && (
+                <div class={`h-2 w-2 rounded-full bg-${badge.color}-400`}></div>
+              )}
+              <span class={`text-${badge.color}-400 font-semibold text-sm`}>{badge.label}</span>
+            </div>
+          ))}
         </div>
 
-        <!-- Headline -->
+        <!-- Headline - FROM CONFIG -->
         <div class="space-y-6">
           <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl leading-tight">
-            Trade Data as a Service
-            <span class="block mt-2 text-cyan-300">TDaaS</span>
+            {hero.mainHeading.line1}
+            <span class="block mt-2 text-cyan-300">{hero.mainHeading.line2}</span>
           </h1>
           <p class="mx-auto max-w-3xl text-xl text-cyan-100 font-medium">
-            Access comprehensive Canadian trade datasets with interactive analytics, real-time visualizations, and instant downloads
+            {hero.subheading}
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- DATASETS SECTION -->
+  <!-- DATASETS SECTION - FULLY CONFIG-DRIVEN -->
   <section class="bg-white py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       
+      <!-- Section Header - FROM CONFIG -->
       <div class="text-center mb-12">
-        <h2 class="text-4xl font-bold text-slate-900 mb-4">Explore Trade Datasets</h2>
-        <p class="text-xl text-slate-600">Click any card below to view interactive charts and download data</p>
+        <h2 class="text-4xl font-bold text-slate-900 mb-4">{datasetsSection.heading}</h2>
+        <p class="text-xl text-slate-600">{datasetsSection.subheading}</p>
       </div>
 
-      <!-- Dataset Cards Grid - CONFIG DRIVEN -->
+      <!-- Dataset Cards Grid - FROM CONFIG -->
       <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         
         {datasets.map((dataset) => {
           const isActive = dataset.status === 'active';
-          const colorMap = {
-            blue: { badge: 'text-blue-700 bg-blue-100', gradient: 'from-blue-400 to-blue-600', border: 'border-blue-500' },
-            purple: { badge: 'text-purple-700 bg-purple-100', gradient: 'from-purple-400 to-purple-600', border: 'border-purple-500' },
-            green: { badge: 'text-green-700 bg-green-100', gradient: 'from-green-400 to-green-600', border: 'border-green-500' }
-          };
-          const colors = colorMap[dataset.categoryColor as keyof typeof colorMap];
+          const colors = colorMappings[dataset.categoryColor];
+          const iconPath = iconMappings[dataset.icon];
 
           return (
             <div class={`group relative bg-white rounded-xl border-2 border-slate-200 transition-all duration-300 ${
-              isActive ? 'hover:border-' + dataset.categoryColor + '-500 hover:shadow-2xl' : 'opacity-60 cursor-not-allowed'
+              isActive ? `hover:${colors.border} hover:shadow-2xl` : 'opacity-60 cursor-not-allowed'
             }`}>
               <div class="p-8">
-                <!-- Category Badge -->
+                
+                <!-- Category Badge - FROM CONFIG -->
                 <div class="mb-4">
                   <span class={`inline-block px-3 py-1 text-xs font-bold rounded-full ${colors.badge}`}>
                     {dataset.category}
                   </span>
                 </div>
 
-                <!-- Icon -->
+                <!-- Icon - FROM CONFIG -->
                 <div class={`mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${colors.gradient} shadow-lg`}>
                   <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    {dataset.icon === 'chart-bar' && (
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                    )}
-                    {dataset.icon === 'globe' && (
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    )}
-                    {dataset.icon === 'package' && (
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                    )}
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={iconPath}></path>
                   </svg>
                 </div>
 
-                <!-- Content -->
+                <!-- Content - FROM CONFIG -->
                 <h3 class="text-2xl font-bold text-slate-900 mb-3">{dataset.title}</h3>
                 <p class="text-slate-600 mb-6">{dataset.description}</p>
 
-                <!-- Value Prop -->
-                {isActive && (
+                <!-- Value Prop - FROM CONFIG -->
+                {isActive && dataset.valueProposition && (
                   <div class="mb-6 space-y-2">
                     <div class="flex items-start space-x-2">
-                      <svg class={`h-5 w-5 text-${dataset.categoryColor}-500 mt-0.5`} fill="currentColor" viewBox="0 0 20 20">
+                      <svg class={`h-5 w-5 ${colors.checkmark} mt-0.5`} fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                       </svg>
                       <span class="text-sm text-slate-700"><strong>Value:</strong> {dataset.valueProposition}</span>
@@ -118,13 +108,13 @@ const datasets = datasetsConfig.datasets;
                   </div>
                 )}
 
-                <!-- CTA Button or Coming Soon Badge -->
+                <!-- CTA Button or Coming Soon Badge - FROM CONFIG -->
                 {isActive ? (
                   <button 
                     data-modal={dataset.id}
-                    class={`modal-trigger w-full inline-flex items-center justify-center space-x-2 px-6 py-3 rounded-lg bg-gradient-to-r from-${dataset.categoryColor}-500 to-${dataset.categoryColor}-600 text-white font-bold hover:from-${dataset.categoryColor}-600 hover:to-${dataset.categoryColor}-700 transition-all duration-300 shadow-lg hover:shadow-xl group-hover:scale-105`}
+                    class={`modal-trigger w-full inline-flex items-center justify-center space-x-2 px-6 py-3 rounded-lg bg-gradient-to-r ${colors.button} text-white font-bold transition-all duration-300 shadow-lg hover:shadow-xl group-hover:scale-105`}
                   >
-                    <span>View Analytics</span>
+                    <span>{dataset.buttonText}</span>
                     <svg class="h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                     </svg>
@@ -132,7 +122,7 @@ const datasets = datasetsConfig.datasets;
                 ) : (
                   <div class="mb-6">
                     <span class="inline-block px-4 py-2 bg-yellow-100 text-yellow-800 text-sm font-bold rounded-lg">
-                      Coming Soon
+                      {dataset.comingSoonBadge}
                     </span>
                   </div>
                 )}
