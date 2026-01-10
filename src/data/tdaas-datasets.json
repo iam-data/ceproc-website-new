@@ -1,0 +1,57 @@
+{
+    "datasets": [
+      {
+        "id": "trade-balance",
+        "category": "OVERVIEW",
+        "categoryColor": "blue",
+        "icon": "chart-bar",
+        "iconGradient": {
+          "from": "blue-400",
+          "to": "blue-600"
+        },
+        "title": "Trade Balance Trends",
+        "description": "Monthly import/export balance analysis showing Canada's trade position over time",
+        "valueProposition": "Identify surplus/deficit patterns and seasonal trends to optimize timing",
+        "status": "active",
+        "modalComponent": "TradeBalanceModal",
+        "apiEndpoint": "/api/tdaas/trade-balance"
+      },
+      {
+        "id": "top-markets",
+        "category": "MARKETS",
+        "categoryColor": "purple",
+        "icon": "globe",
+        "iconGradient": {
+          "from": "purple-400",
+          "to": "purple-600"
+        },
+        "title": "Top Export Markets",
+        "description": "Discover Canada's largest export destinations and emerging market opportunities",
+        "valueProposition": "Target high-potential markets for expansion and diversification",
+        "status": "coming_soon",
+        "modalComponent": null,
+        "apiEndpoint": null
+      },
+      {
+        "id": "commodities",
+        "category": "COMMODITIES",
+        "categoryColor": "green",
+        "icon": "package",
+        "iconGradient": {
+          "from": "green-400",
+          "to": "green-600"
+        },
+        "title": "Leading Export Commodities",
+        "description": "Track performance of Canada's top export products and commodity trends",
+        "valueProposition": "Benchmark your products against national performance metrics",
+        "status": "coming_soon",
+        "modalComponent": null,
+        "apiEndpoint": null
+      }
+    ],
+    "metadata": {
+      "lastUpdated": "2025-01-04",
+      "version": "1.0",
+      "totalDatasets": 3
+    }
+  }

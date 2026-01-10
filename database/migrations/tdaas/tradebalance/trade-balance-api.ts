@@ -1,6 +1,6 @@
 // /src/pages/api/tdaas/trade-balance.ts
 // REST API endpoint to serve Canada trade balance data from Neon Postgres
-// Fixed for Neon serverless v5+ tagged template syntax
+// Supports filtering by date range, currency, and limit
 
 import type { APIRoute } from 'astro';
 import { neon } from '@neondatabase/serverless';
@@ -25,98 +25,53 @@ async function queryTradeBalance(params: {
 }) {
   const sql = getDatabaseClient();
   
-  const { startDate, endDate, limit = 12 } = params;
+  const { startDate, endDate, currency = 'CAD', limit = 12 } = params;
   
-  // Build query with Neon's tagged template syntax
-  let result;
+  // Build query with optional date filtering
+  let query = `
+    SELECT 
+      period,
+      period_date,
+      exports_cad,
+      imports_cad,
+      balance_cad,
+      balance_type,
+      exports_usd,
+      imports_usd,
+      balance_usd,
+      cad_usd_rate,
+      data_source,
+      last_synced_at
+    FROM trade_balance
+  `;
   
-  if (startDate && endDate) {
-    // Query with date range filter
-    result = await sql`
-      SELECT 
-        period,
-        period_date,
-        exports_cad,
-        imports_cad,
-        balance_cad,
-        balance_type,
-        exports_usd,
-        imports_usd,
-        balance_usd,
-        cad_usd_rate,
-        data_source,
-        last_synced_at
-      FROM trade_balance
-      WHERE period_date >= ${startDate}
-        AND period_date <= ${endDate}
-      ORDER BY period_date DESC
-      LIMIT ${limit}
-    `;
-  } else if (startDate) {
-    // Query with start date only
-    result = await sql`
-      SELECT 
-        period,
-        period_date,
-        exports_cad,
-        imports_cad,
-        balance_cad,
-        balance_type,
-        exports_usd,
-        imports_usd,
-        balance_usd,
-        cad_usd_rate,
-        data_source,
-        last_synced_at
-      FROM trade_balance
-      WHERE period_date >= ${startDate}
-      ORDER BY period_date DESC
-      LIMIT ${limit}
-    `;
-  } else if (endDate) {
-    // Query with end date only
-    result = await sql`
-      SELECT 
-        period,
-        period_date,
-        exports_cad,
-        imports_cad,
-        balance_cad,
-        balance_type,
-        exports_usd,
-        imports_usd,
-        balance_usd,
-        cad_usd_rate,
-        data_source,
-        last_synced_at
-      FROM trade_balance
-      WHERE period_date <= ${endDate}
-      ORDER BY period_date DESC
-      LIMIT ${limit}
-    `;
-  } else {
-    // Query without date filters (just limit)
-    result = await sql`
-      SELECT 
-        period,
-        period_date,
-        exports_cad,
-        imports_cad,
-        balance_cad,
-        balance_type,
-        exports_usd,
-        imports_usd,
-        balance_usd,
-        cad_usd_rate,
-        data_source,
-        last_synced_at
-      FROM trade_balance
-      ORDER BY period_date DESC
-      LIMIT ${limit}
-    `;
+  const conditions: string[] = [];
+  const values: any[] = [];
+  
+  if (startDate) {
+    values.push(startDate);
+    conditions.push(`period_date >= $${values.length}`);
   }
   
-  return result;
+  if (endDate) {
+    values.push(endDate);
+    conditions.push(`period_date <= $${values.length}`);
+  }
+  
+  if (conditions.length > 0) {
+    query += ` WHERE ${conditions.join(' AND ')}`;
+  }
+  
+  query += ` ORDER BY period_date DESC LIMIT $${values.length + 1}`;
+  values.push(limit);
+  
+  try {
+    const result = await sql(query, values);
+    return result;
+  } catch (error) {
+    console.error('Database query error:', error);
+    throw error;
+  }
 }
 
 export const GET: APIRoute = async ({ request }) => {

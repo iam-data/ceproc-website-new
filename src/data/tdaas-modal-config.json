@@ -1,0 +1,54 @@
+{
+    "modals": {
+      "tradeBalance": {
+        "header": {
+          "line1": {
+            "text": "Trade Data as a Service (TDaaS)",
+            "prefix": "Canada Export Promotion Council (CEPROC)",
+            "separator": " - "
+          },
+          "line2": {
+            "text": "Canada Trade Balance Trends"
+          },
+          "line3": {
+            "text": "Monthly import/export analysis",
+            "source": "Statistics Canada",
+            "separator": " • "
+          }
+        },
+        "sourceTable": "12-10-0011-01",
+        "description": "Comprehensive monthly analysis of Canada's international trade balance",
+        "features": [
+          "Real-time data updates",
+          "Interactive visualizations",
+          "Export to CSV/Excel",
+          "Multi-currency support (CAD/USD)",
+          "Customizable time ranges"
+        ],
+        "chartConfig": {
+          "defaultCurrency": "CAD",
+          "defaultTimeRange": 12,
+          "availableTimeRanges": [12, 24, 36],
+          "chartType": "line",
+          "showExports": true,
+          "showImports": true,
+          "showBalance": true
+        }
+      }
+    },
+    "branding": {
+      "logo": {
+        "type": "maple-leaf",
+        "gradientColors": {
+          "from": "red-500",
+          "via": "red-600",
+          "to": "red-700"
+        }
+      },
+      "colors": {
+        "primary": "blue-600",
+        "secondary": "cyan-500",
+        "accent": "green-500"
+      }
+    }
+  }

@@ -1,261 +1,216 @@
 ---
-// src/pages/tdaas/index.astro
+// /src/pages/tdaas/index.astro
+// Config-driven TDaaS Hub - Reads from tdaas-datasets.json
 import Layout from '../../layouts/Layout.astro';
-import DatasetCard from '../../components/tdaas/DatasetCard.astro';
+import Footer from '../../components/Footer.astro';
+import datasetsConfig from '../../data/tdaas-datasets.json';
 
-const pageTitle = "Trade Data as a Service (TDaaS) | CEPROC";
-const pageDescription = "Access real-time Canadian international trade data, analytics, and market insights to drive your export strategy";
-
-// Dataset definitions
-const datasets = [
-  {
-    id: 'trade-balance',
-    icon: '📊',
-    title: 'Trade Balance Trends',
-    description: 'Monthly import/export balance analysis showing Canada\'s trade position over time',
-    value: 'Identify surplus/deficit patterns and seasonal trends to optimize timing',
-    color: 'blue',
-    category: 'Overview'
-  },
-  {
-    id: 'top-markets',
-    icon: '🌎',
-    title: 'Top Export Markets',
-    description: 'Discover Canada\'s largest export destinations and emerging market opportunities',
-    value: 'Target high-potential markets for expansion and diversification',
-    color: 'green',
-    category: 'Markets'
-  },
-  {
-    id: 'leading-commodities',
-    icon: '📦',
-    title: 'Leading Export Commodities',
-    description: 'Track performance of Canada\'s top export products and commodity trends',
-    value: 'Benchmark your products against national performance metrics',
-    color: 'purple',
-    category: 'Commodities'
-  },
-  {
-    id: 'import-sources',
-    icon: '🚢',
-    title: 'Top Import Sources',
-    description: 'Analyze where Canada sources its imports and supply chain dependencies',
-    value: 'Identify supply chain opportunities and competitive intelligence',
-    color: 'orange',
-    category: 'Markets'
-  },
-  {
-    id: 'growth-markets',
-    icon: '📈',
-    title: 'Fastest Growing Markets',
-    description: 'Markets with accelerating trade growth over the past 12-24 months',
-    value: 'Be first to enter high-growth emerging markets',
-    color: 'teal',
-    category: 'Markets'
-  },
-  {
-    id: 'diversification',
-    icon: '⚖️',
-    title: 'Trade Diversification Index',
-    description: 'Measure Canada\'s market concentration and diversification progress',
-    value: 'Understand systemic risks and diversification strategies',
-    color: 'indigo',
-    category: 'Overview'
-  },
-  {
-    id: 'provincial-exports',
-    icon: '🗺️',
-    title: 'Provincial Export Performance',
-    description: 'Compare export performance across Canadian provinces and territories',
-    value: 'Understand regional strengths and competitive advantages',
-    color: 'red',
-    category: 'Regional'
-  },
-  {
-    id: 'sector-analysis',
-    icon: '🏭',
-    title: 'Sector-by-Sector Analysis',
-    description: 'Deep dive into specific industry sectors and their trade performance',
-    value: 'Industry-specific insights for strategic planning',
-    color: 'yellow',
-    category: 'Sectors'
-  },
-  {
-    id: 'trade-agreements',
-    icon: '🤝',
-    title: 'Trade Agreement Impact',
-    description: 'Measure the impact of FTAs on bilateral trade flows',
-    value: 'Leverage preferential market access opportunities',
-    color: 'pink',
-    category: 'Policy'
-  }
-];
+const datasets = datasetsConfig.datasets;
 ---
 
-<Layout title={pageTitle}>
-  <!-- Hero Section (Blue Gradient like Events page) -->
-  <section class="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <div class="inline-block bg-blue-700 bg-opacity-50 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-        🚀 CEPROC Core Service
-      </div>
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-        Trade Data as a Service
-      </h1>
-      <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto leading-relaxed">
-        Transform Canadian international trade data into actionable insights that drive export growth and market expansion
-      </p>
-      
-      <!-- Quick Stats -->
-      <div class="grid grid-cols-3 gap-8 max-w-2xl mx-auto mt-12">
-        <div>
-          <div class="text-3xl font-bold">200+</div>
-          <div class="text-sm opacity-80">Countries</div>
-        </div>
-        <div>
-          <div class="text-3xl font-bold">20+</div>
-          <div class="text-sm opacity-80">Years of Data</div>
-        </div>
-        <div>
-          <div class="text-3xl font-bold">5,000+</div>
-          <div class="text-sm opacity-80">Commodities</div>
-        </div>
-      </div>
+<Layout title="Trade Data as a Service (TDaaS) | CEPROC" description="Access Canada's trade data through interactive analytics and downloadable datasets">
+  
+  <!-- HERO SECTION -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-blue-600 to-blue-800 pt-24 pb-32">
+    <!-- Animated Background -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute -top-40 -right-40 w-80 h-80 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+      <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
     </div>
-  </section>
 
-  <!-- Main Content (White Background) -->
-  <section class="bg-white py-16">
-    <div class="max-w-7xl mx-auto px-4">
-      
-      <!-- Introduction Card -->
-      <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-8 mb-12 shadow-sm">
-        <div class="flex flex-col md:flex-row items-start gap-6">
-          <div class="text-5xl flex-shrink-0">💡</div>
-          <div class="flex-1">
-            <h2 class="text-2xl font-bold text-gray-900 mb-3">
-              Why Trade Data Matters for Your Business
-            </h2>
-            <p class="text-gray-700 text-lg leading-relaxed mb-4">
-              Make data-driven decisions with real-time insights into Canadian trade flows, 
-              market opportunities, and competitive intelligence. Our curated datasets help 
-              you identify growth markets, track trade trends, and benchmark performance against national averages.
-            </p>
-            <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-              <div class="flex items-center gap-2 text-gray-800">
-                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                </svg>
-                <span class="font-medium text-sm">Real-time Updates</span>
-              </div>
-              <div class="flex items-center gap-2 text-gray-800">
-                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                </svg>
-                <span class="font-medium text-sm">Government Sources</span>
-              </div>
-              <div class="flex items-center gap-2 text-gray-800">
-                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                </svg>
-                <span class="font-medium text-sm">Interactive Charts</span>
-              </div>
-              <div class="flex items-center gap-2 text-gray-800">
-                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                </svg>
-                <span class="font-medium text-sm">Export Ready</span>
-              </div>
-            </div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center space-y-8">
+        <!-- Badge Row -->
+        <div class="flex justify-center items-center gap-4 flex-wrap">
+          <div class="flex items-center space-x-2 px-4 py-2 rounded-full bg-blue-700 bg-opacity-50 border border-green-500/30">
+            <div class="h-2 w-2 rounded-full bg-green-400 animate-pulse"></div>
+            <span class="text-green-400 font-semibold text-sm">Real-time Updates</span>
+          </div>
+          <div class="flex items-center space-x-2 px-4 py-2 rounded-full bg-blue-700 bg-opacity-50 border border-cyan-500/30">
+            <div class="h-2 w-2 rounded-full bg-cyan-400"></div>
+            <span class="text-cyan-400 font-semibold text-sm">Government Sources</span>
+          </div>
+          <div class="flex items-center space-x-2 px-4 py-2 rounded-full bg-blue-700 bg-opacity-50 border border-purple-500/30">
+            <div class="h-2 w-2 rounded-full bg-purple-400"></div>
+            <span class="text-purple-400 font-semibold text-sm">Interactive Charts</span>
+          </div>
+          <div class="flex items-center space-x-2 px-4 py-2 rounded-full bg-blue-700 bg-opacity-50 border border-blue-500/30">
+            <div class="h-2 w-2 rounded-full bg-blue-400"></div>
+            <span class="text-blue-400 font-semibold text-sm">Export Ready</span>
           </div>
         </div>
-      </div>
 
-      <!-- Dataset Section Title -->
-      <div class="mb-8">
-        <h2 class="text-3xl font-bold text-gray-900 mb-2">Explore Trade Datasets</h2>
-        <p class="text-gray-600 text-lg">Click any card below to view interactive charts and download data</p>
-      </div>
-
-      <!-- Dataset Cards Grid -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-        {datasets.map(dataset => (
-          <DatasetCard {...dataset} />
-        ))}
-      </div>
-
-      <!-- Custom Data Requests Section -->
-      <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl p-8 md:p-12 text-white text-center shadow-lg">
-        <div class="max-w-3xl mx-auto">
-          <h2 class="text-3xl font-bold mb-4">Need Custom Trade Intelligence?</h2>
-          <p class="text-lg mb-6 opacity-90 leading-relaxed">
-            Looking for specific commodity analysis, custom market reports, or tailored trade data? 
-            Our team can create custom datasets and analytics to match your exact business needs.
+        <!-- Headline -->
+        <div class="space-y-6">
+          <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl leading-tight">
+            Trade Data as a Service
+            <span class="block mt-2 text-cyan-300">TDaaS</span>
+          </h1>
+          <p class="mx-auto max-w-3xl text-xl text-cyan-100 font-medium">
+            Access comprehensive Canadian trade datasets with interactive analytics, real-time visualizations, and instant downloads
           </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="/contact?subject=Custom%20Trade%20Data" 
-              class="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-md"
-            >
-              Request Custom Data
-            </a>
-            <a 
-              href="/resources" 
-              class="inline-block bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-600 transition-colors border-2 border-white"
-            >
-              View All Resources
-            </a>
-          </div>
         </div>
       </div>
-
-      <!-- Data Sources Section -->
-      <div class="mt-12 pt-12 border-t border-gray-200">
-        <h3 class="text-xl font-bold text-gray-900 mb-4">Our Data Sources</h3>
-        <div class="grid md:grid-cols-2 gap-6">
-          <div class="flex items-start gap-4">
-            <div class="bg-red-100 p-3 rounded-lg">
-              <span class="text-2xl">🍁</span>
-            </div>
-            <div>
-              <h4 class="font-semibold text-gray-900">Statistics Canada</h4>
-              <p class="text-gray-600 text-sm">Official Canadian international merchandise trade data, updated monthly</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-4">
-            <div class="bg-blue-100 p-3 rounded-lg">
-              <span class="text-2xl">🇺🇸</span>
-            </div>
-            <div>
-              <h4 class="font-semibold text-gray-900">U.S. Census Bureau</h4>
-              <p class="text-gray-600 text-sm">USA Trade Online for bilateral Canada-US trade analysis</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
   </section>
 
-  <!-- Modal Container (for Phase 2 - chart modals will go here) -->
-  <div id="chart-modal-container"></div>
+  <!-- DATASETS SECTION -->
+  <section class="bg-white py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-slate-900 mb-4">Explore Trade Datasets</h2>
+        <p class="text-xl text-slate-600">Click any card below to view interactive charts and download data</p>
+      </div>
+
+      <!-- Dataset Cards Grid - CONFIG DRIVEN -->
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        
+        {datasets.map((dataset) => {
+          const isActive = dataset.status === 'active';
+          const colorMap = {
+            blue: { badge: 'text-blue-700 bg-blue-100', gradient: 'from-blue-400 to-blue-600', border: 'border-blue-500' },
+            purple: { badge: 'text-purple-700 bg-purple-100', gradient: 'from-purple-400 to-purple-600', border: 'border-purple-500' },
+            green: { badge: 'text-green-700 bg-green-100', gradient: 'from-green-400 to-green-600', border: 'border-green-500' }
+          };
+          const colors = colorMap[dataset.categoryColor as keyof typeof colorMap];
+
+          return (
+            <div class={`group relative bg-white rounded-xl border-2 border-slate-200 transition-all duration-300 ${
+              isActive ? 'hover:border-' + dataset.categoryColor + '-500 hover:shadow-2xl' : 'opacity-60 cursor-not-allowed'
+            }`}>
+              <div class="p-8">
+                <!-- Category Badge -->
+                <div class="mb-4">
+                  <span class={`inline-block px-3 py-1 text-xs font-bold rounded-full ${colors.badge}`}>
+                    {dataset.category}
+                  </span>
+                </div>
+
+                <!-- Icon -->
+                <div class={`mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${colors.gradient} shadow-lg`}>
+                  <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    {dataset.icon === 'chart-bar' && (
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    )}
+                    {dataset.icon === 'globe' && (
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    )}
+                    {dataset.icon === 'package' && (
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                    )}
+                  </svg>
+                </div>
+
+                <!-- Content -->
+                <h3 class="text-2xl font-bold text-slate-900 mb-3">{dataset.title}</h3>
+                <p class="text-slate-600 mb-6">{dataset.description}</p>
+
+                <!-- Value Prop -->
+                {isActive && (
+                  <div class="mb-6 space-y-2">
+                    <div class="flex items-start space-x-2">
+                      <svg class={`h-5 w-5 text-${dataset.categoryColor}-500 mt-0.5`} fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                      </svg>
+                      <span class="text-sm text-slate-700"><strong>Value:</strong> {dataset.valueProposition}</span>
+                    </div>
+                  </div>
+                )}
+
+                <!-- CTA Button or Coming Soon Badge -->
+                {isActive ? (
+                  <button 
+                    data-modal={dataset.id}
+                    class={`modal-trigger w-full inline-flex items-center justify-center space-x-2 px-6 py-3 rounded-lg bg-gradient-to-r from-${dataset.categoryColor}-500 to-${dataset.categoryColor}-600 text-white font-bold hover:from-${dataset.categoryColor}-600 hover:to-${dataset.categoryColor}-700 transition-all duration-300 shadow-lg hover:shadow-xl group-hover:scale-105`}
+                  >
+                    <span>View Analytics</span>
+                    <svg class="h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                  </button>
+                ) : (
+                  <div class="mb-6">
+                    <span class="inline-block px-4 py-2 bg-yellow-100 text-yellow-800 text-sm font-bold rounded-lg">
+                      Coming Soon
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <!-- Import React Modal Component -->
+  <div id="trade-balance-modal-root"></div>
 </Layout>
 
+<!-- Client-side Script -->
 <script>
-  // Handle dataset card clicks - Phase 2 will add modal functionality
+  import { createRoot } from 'react-dom/client';
+  import { createElement } from 'react';
+  import TradeBalanceModal from '../../components/tdaas/TradeBalanceModal';
+
+  // Initialize modal
+  let modalRoot: any = null;
+  let isModalOpen = false;
+
+  function openModal() {
+    isModalOpen = true;
+    renderModal();
+  }
+
+  function closeModal() {
+    isModalOpen = false;
+    renderModal();
+  }
+
+  function renderModal() {
+    const container = document.getElementById('trade-balance-modal-root');
+    if (!container) return;
+
+    if (!modalRoot) {
+      modalRoot = createRoot(container);
+    }
+
+    modalRoot.render(
+      createElement(TradeBalanceModal, {
+        isOpen: isModalOpen,
+        onClose: closeModal
+      })
+    );
+  }
+
+  // Attach event listeners
   document.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('[data-dataset-id]');
-    
-    cards.forEach(card => {
-      card.addEventListener('click', (e) => {
-        e.preventDefault();
-        const datasetId = card.getAttribute('data-dataset-id');
-        
-        // Phase 2: Open interactive chart modal
-        // For now, just log to console
-        console.log('Dataset clicked:', datasetId);
-        console.log('Chart modal functionality coming in Phase 2');
-      });
+    const triggers = document.querySelectorAll('.modal-trigger[data-modal="trade-balance"]');
+    triggers.forEach(trigger => {
+      trigger.addEventListener('click', openModal);
     });
+
+    // Initialize modal (closed)
+    renderModal();
   });
 </script>
+
+<style>
+  @keyframes blob {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+  }
+  
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+  
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+</style>
