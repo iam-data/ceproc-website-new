@@ -2,11 +2,13 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import vercel from '@astrojs/vercel';
 
+import react from '@astrojs/react';
+
 export default defineConfig({
   output: 'server',
   adapter: vercel({
     edgeMiddleware: false,
     functionPerRoute: true  // Add this line
   }),
-  integrations: [tailwind()],
+  integrations: [tailwind(), react()],
 });

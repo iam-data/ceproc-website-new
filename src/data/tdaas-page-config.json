@@ -2,120 +2,125 @@
   "meta": {
     "title": "Trade Data as a Service (TDaaS)",
     "titleSuffix": "CEPROC",
-    "description": "Access comprehensive Canadian trade datasets with interactive analytics, real-time visualizations, and instant downloads"
+    "description": "Access Canada's comprehensive trade data through interactive analytics. Real-time insights on trade balance, export markets, and commodity trends.",
+    "keywords": "Canada trade data, export statistics, import data, trade analytics, TDaaS, CEPROC"
   },
   "hero": {
     "badges": [
       {
-        "icon": "pulse",
-        "label": "Real-time Updates",
-        "color": "green"
+        "text": "Real-time Updates",
+        "icon": "activity"
       },
       {
-        "icon": "shield",
-        "label": "Government Sources",
-        "color": "cyan"
+        "text": "Government Sources",
+        "icon": "shield"
       },
       {
-        "icon": "chart",
-        "label": "Interactive Charts",
-        "color": "purple"
+        "text": "Interactive Charts",
+        "icon": "barChart"
       },
       {
-        "icon": "download",
-        "label": "Export Ready",
-        "color": "blue"
+        "text": "Export Ready",
+        "icon": "download"
       }
     ],
     "mainHeading": {
-      "line1": "Trade Data as a Service",
-      "line2": "TDaaS"
+      "part1": "Trade Data as a Service",
+      "part2": "TDaaS",
+      "gradient": "from-blue-400 via-purple-400 to-pink-400"
     },
-    "subheading": "Access comprehensive Canadian trade datasets with interactive analytics, real-time visualizations, and instant downloads"
+    "subheading": "Access comprehensive Canadian trade analytics powered by Statistics Canada. Interactive visualizations, real-time updates, and export-ready reports."
   },
   "datasetsSection": {
-    "heading": "Explore Trade Datasets",
-    "subheading": "Click any card below to view interactive charts and download data"
+    "heading": "Available Datasets",
+    "subheading": "Explore Canada's trade performance through curated datasets"
   },
   "datasets": [
     {
       "id": "trade-balance",
       "category": "OVERVIEW",
       "categoryColor": "blue",
-      "icon": "chart-bar",
-      "iconGradient": {
-        "from": "blue-400",
-        "to": "blue-600"
-      },
       "title": "Trade Balance Trends",
-      "description": "Monthly import/export balance analysis showing Canada's trade position over time",
-      "valueProposition": "Identify surplus/deficit patterns and seasonal trends to optimize timing",
+      "description": "Monthly analysis of Canada's import/export balance with interactive time-series charts and currency conversion.",
+      "icon": "trendingUp",
       "status": "active",
       "buttonText": "View Analytics",
-      "modalComponent": "TradeBalanceModal",
-      "apiEndpoint": "/api/tdaas/trade-balance"
+      "features": [
+        "60 months of historical data",
+        "CAD/USD currency toggle",
+        "Interactive Chart.js visualization",
+        "CSV export functionality"
+      ],
+      "dataSource": "Statistics Canada Table 12-10-0011-01",
+      "updateFrequency": "Monthly"
     },
     {
       "id": "top-markets",
       "category": "MARKETS",
       "categoryColor": "purple",
-      "icon": "globe",
-      "iconGradient": {
-        "from": "purple-400",
-        "to": "purple-600"
-      },
       "title": "Top Export Markets",
-      "description": "Discover Canada's largest export destinations and emerging market opportunities",
-      "valueProposition": "Target high-potential markets for expansion and diversification",
-      "status": "coming_soon",
-      "comingSoonBadge": "Coming Soon",
-      "modalComponent": null,
-      "apiEndpoint": null
+      "description": "Analyze Canada's leading export destinations with country rankings, market share insights, and growth trends.",
+      "icon": "globe",
+      "status": "active",
+      "buttonText": "Explore Markets",
+      "features": [
+        "Top 15 destination countries",
+        "Bar chart and comparison views",
+        "Country-by-country analysis",
+        "Regional market trends"
+      ],
+      "dataSource": "Statistics Canada Table 12-10-0144-01",
+      "updateFrequency": "Monthly"
     },
     {
       "id": "commodities",
       "category": "COMMODITIES",
       "categoryColor": "green",
-      "icon": "package",
-      "iconGradient": {
-        "from": "green-400",
-        "to": "green-600"
-      },
       "title": "Leading Export Commodities",
-      "description": "Track performance of Canada's top export products and commodity trends",
-      "valueProposition": "Benchmark your products against national performance metrics",
+      "description": "Track Canada's top export products across sectors including energy, automotive, machinery, and agriculture.",
+      "icon": "package",
       "status": "coming_soon",
-      "comingSoonBadge": "Coming Soon",
-      "modalComponent": null,
-      "apiEndpoint": null
+      "buttonText": "Coming Soon",
+      "features": [
+        "Sector-wise breakdown",
+        "HS code classification",
+        "Year-over-year comparisons",
+        "Commodity price trends"
+      ],
+      "dataSource": "Statistics Canada Table 12-10-0121-01",
+      "updateFrequency": "Monthly"
     }
   ],
   "iconMappings": {
-    "chart-bar": "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z",
-    "globe": "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
-    "package": "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+    "trendingUp": "TrendingUp",
+    "globe": "Globe",
+    "package": "Package",
+    "activity": "Activity",
+    "shield": "Shield",
+    "barChart": "BarChart3",
+    "download": "Download"
   },
   "colorMappings": {
     "blue": {
-      "badge": "text-blue-700 bg-blue-100",
-      "gradient": "from-blue-400 to-blue-600",
-      "border": "border-blue-500",
-      "button": "from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700",
-      "checkmark": "text-blue-500"
+      "gradient": "from-blue-500 to-blue-600",
+      "bg": "bg-blue-500/10",
+      "border": "border-blue-500/20",
+      "text": "text-blue-400",
+      "hover": "hover:bg-blue-500/20"
     },
     "purple": {
-      "badge": "text-purple-700 bg-purple-100",
-      "gradient": "from-purple-400 to-purple-600",
-      "border": "border-purple-500",
-      "button": "from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700",
-      "checkmark": "text-purple-500"
+      "gradient": "from-purple-500 to-purple-600",
+      "bg": "bg-purple-500/10",
+      "border": "border-purple-500/20",
+      "text": "text-purple-400",
+      "hover": "hover:bg-purple-500/20"
     },
     "green": {
-      "badge": "text-green-700 bg-green-100",
-      "gradient": "from-green-400 to-green-600",
-      "border": "border-green-500",
-      "button": "from-green-500 to-green-600 hover:from-green-600 hover:to-green-700",
-      "checkmark": "text-green-500"
+      "gradient": "from-green-500 to-green-600",
+      "bg": "bg-green-500/10",
+      "border": "border-green-500/20",
+      "text": "text-green-400",
+      "hover": "hover:bg-green-500/20"
     }
   }
 }

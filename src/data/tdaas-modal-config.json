@@ -1,54 +1,154 @@
 {
-    "modals": {
-      "tradeBalance": {
-        "header": {
-          "line1": {
-            "text": "Trade Data as a Service (TDaaS)",
-            "prefix": "Canada Export Promotion Council (CEPROC)",
-            "separator": " - "
-          },
-          "line2": {
-            "text": "Canada Trade Balance Trends"
-          },
-          "line3": {
-            "text": "Monthly import/export analysis",
-            "source": "Statistics Canada",
-            "separator": " • "
-          }
+  "modals": {
+    "tradeBalance": {
+      "header": {
+        "line1": {
+          "prefix": "Canada Export Promotion Council (CEPROC)",
+          "separator": " - ",
+          "text": "Trade Data as a Service (TDaaS)"
         },
-        "sourceTable": "12-10-0011-01",
-        "description": "Comprehensive monthly analysis of Canada's international trade balance",
-        "features": [
-          "Real-time data updates",
-          "Interactive visualizations",
-          "Export to CSV/Excel",
-          "Multi-currency support (CAD/USD)",
-          "Customizable time ranges"
-        ],
-        "chartConfig": {
-          "defaultCurrency": "CAD",
-          "defaultTimeRange": 12,
-          "availableTimeRanges": [12, 24, 36],
-          "chartType": "line",
-          "showExports": true,
-          "showImports": true,
-          "showBalance": true
-        }
-      }
-    },
-    "branding": {
-      "logo": {
-        "type": "maple-leaf",
-        "gradientColors": {
-          "from": "red-500",
-          "via": "red-600",
-          "to": "red-700"
+        "line2": {
+          "text": "Canada Trade Balance Trends"
+        },
+        "line3": {
+          "text": "Monthly import/export analysis",
+          "separator": " • ",
+          "source": "Statistics Canada"
         }
       },
-      "colors": {
-        "primary": "blue-600",
-        "secondary": "cyan-500",
-        "accent": "green-500"
+      "chartConfig": {
+        "defaultCurrency": "CAD",
+        "defaultTimeRange": 12,
+        "availableTimeRanges": [12, 24, 36, 60]
+      }
+    },
+    "topMarkets": {
+      "header": {
+        "line1": {
+          "prefix": "Canada Export Promotion Council (CEPROC)",
+          "separator": " - ",
+          "text": "Trade Data as a Service (TDaaS)"
+        },
+        "line2": {
+          "text": "Top Export Markets"
+        },
+        "line3": {
+          "text": "Leading destination countries by export value",
+          "separator": " • ",
+          "source": "Statistics Canada Table 12-10-0144-01"
+        }
+      },
+      "chartConfig": {
+        "defaultCurrency": "CAD",
+        "defaultTimeRange": 12,
+        "availableTimeRanges": [12, 24, 36, 60],
+        "defaultTopN": 10,
+        "availableTopN": [5, 10, 15],
+        "defaultVisualization": "bar",
+        "availableVisualizations": ["bar", "map"],
+        "periodTypes": {
+          "monthly": "Monthly Data",
+          "annual": "Annual Data"
+        },
+        "defaultPeriodType": "monthly"
+      },
+      "countryComparison": {
+        "enabled": true,
+        "maxCountries": 5,
+        "presetGroups": [
+          {
+            "id": "top5",
+            "name": "Top 5 Markets",
+            "countries": ["US", "CN", "GB", "JP", "MX"]
+          },
+          {
+            "id": "nafta",
+            "name": "NAFTA/USMCA",
+            "countries": ["US", "MX"]
+          },
+          {
+            "id": "asia",
+            "name": "Major Asian Markets",
+            "countries": ["CN", "JP", "KR", "IN", "HK"]
+          },
+          {
+            "id": "europe",
+            "name": "Major European Markets",
+            "countries": ["GB", "DE", "FR", "IT", "NL"]
+          }
+        ]
+      },
+      "summaryCards": {
+        "enabled": true,
+        "cards": [
+          {
+            "id": "topMarket",
+            "title": "Top Market",
+            "icon": "trophy",
+            "format": "country"
+          },
+          {
+            "id": "totalExports",
+            "title": "Total Exports",
+            "icon": "trendingUp",
+            "format": "currency"
+          },
+          {
+            "id": "fastestGrowing",
+            "title": "Fastest Growing",
+            "icon": "rocket",
+            "format": "country_growth"
+          },
+          {
+            "id": "avgGrowth",
+            "title": "Avg Growth Rate",
+            "icon": "lineChart",
+            "format": "percentage"
+          }
+        ]
+      },
+      "tableConfig": {
+        "enabled": true,
+        "defaultSort": {
+          "column": "rank",
+          "direction": "asc"
+        },
+        "columns": [
+          {
+            "id": "rank",
+            "label": "Rank",
+            "sortable": true,
+            "width": "w-16"
+          },
+          {
+            "id": "country",
+            "label": "Country",
+            "sortable": true,
+            "width": "w-48"
+          },
+          {
+            "id": "exports",
+            "label": "Exports",
+            "sortable": true,
+            "format": "currency",
+            "width": "w-32"
+          },
+          {
+            "id": "share",
+            "label": "Share",
+            "sortable": true,
+            "format": "percentage",
+            "width": "w-24"
+          },
+          {
+            "id": "yoyGrowth",
+            "label": "YoY Growth",
+            "sortable": true,
+            "format": "percentage_change",
+            "width": "w-32"
+          }
+        ]
       }
     }
   }
+}

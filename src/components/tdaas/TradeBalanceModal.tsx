@@ -1,5 +1,5 @@
 // /src/components/tdaas/TradeBalanceModal.tsx
-// Updated with proper 3-line header hierarchy from config
+// Fixed to match actual API response structure
 
 import { useEffect, useState } from 'react';
 import { X, Download, TrendingUp, TrendingDown, Calendar, Maximize2, Minimize2 } from 'lucide-react';
@@ -13,8 +13,8 @@ import {
   Tooltip,
   Legend,
   Filler,
-  type ChartOptions,
 } from 'chart.js';
+import type { ChartOptions } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { format } from 'date-fns';
 
@@ -36,28 +36,42 @@ ChartJS.register(
 
 interface TradeBalanceData {
   period: string;
-  date: string;
+  periodDate: string;
   exports: number;
   imports: number;
   balance: number;
-  type: 'surplus' | 'deficit';
+  balanceType: string;
+  exchangeRate: number | null;
+  metadata: any;
 }
 
 interface TradeBalanceResponse {
   success: boolean;
-  data: TradeBalanceData[];
-  metadata: {
-    currency: string;
-    unit: string;
-    total_records: number;
+  data: {
+    balance: TradeBalanceData[];
+    summary: {
+      currency: string;
+      totalPeriods: number;
+      surplusCount: number;
+      deficitCount: number;
+      surplusRate: string;
+      avgBalance: string;
+      bestMonth: {
+        period: string;
+        balance: string;
+      };
+      worstMonth: {
+        period: string;
+        balance: string;
+      };
+    };
   };
-  summary: {
-    average_balance: number;
-    surplus_months: number;
-    deficit_months: number;
-    surplus_rate: number;
-    strongest_month: { period: string; balance: number };
-    weakest_month: { period: string; balance: number };
+  metadata: {
+    source: string;
+    table: string;
+    description: string;
+    lastUpdated: string;
+    queryParams: any;
   };
 }
 
@@ -122,12 +136,12 @@ export default function TradeBalanceModal({ isOpen, onClose }: TradeBalanceModal
   if (!isOpen) return null;
 
   // Prepare chart data
-  const chartData = data?.data ? {
-    labels: data.data.slice().reverse().map(d => format(new Date(d.date), 'MMM yyyy')),
+  const chartData = data?.data?.balance ? {
+    labels: data.data.balance.slice().reverse().map(d => format(new Date(d.periodDate), 'MMM yyyy')),
     datasets: [
       chartConfig.showExports && {
         label: 'Exports',
-        data: data.data.slice().reverse().map(d => d.exports),
+        data: data.data.balance.slice().reverse().map(d => d.exports),
         borderColor: 'rgb(34, 197, 94)',
         backgroundColor: 'rgba(34, 197, 94, 0.1)',
         fill: true,
@@ -138,7 +152,7 @@ export default function TradeBalanceModal({ isOpen, onClose }: TradeBalanceModal
       },
       chartConfig.showImports && {
         label: 'Imports',
-        data: data.data.slice().reverse().map(d => d.imports),
+        data: data.data.balance.slice().reverse().map(d => d.imports),
         borderColor: 'rgb(239, 68, 68)',
         backgroundColor: 'rgba(239, 68, 68, 0.1)',
         fill: true,
@@ -149,7 +163,7 @@ export default function TradeBalanceModal({ isOpen, onClose }: TradeBalanceModal
       },
       chartConfig.showBalance && {
         label: 'Balance',
-        data: data.data.slice().reverse().map(d => d.balance),
+        data: data.data.balance.slice().reverse().map(d => d.balance),
         borderColor: 'rgb(59, 130, 246)',
         backgroundColor: (context: any) => {
           const ctx = context.chart.ctx;
@@ -236,16 +250,16 @@ export default function TradeBalanceModal({ isOpen, onClose }: TradeBalanceModal
 
   // Export to CSV
   const exportToCSV = () => {
-    if (!data?.data) return;
+    if (!data?.data?.balance) return;
 
     const headers = ['Period', 'Date', 'Exports', 'Imports', 'Balance', 'Type'];
-    const rows = data.data.map(d => [
+    const rows = data.data.balance.map(d => [
       d.period,
-      d.date,
+      d.periodDate,
       d.exports,
       d.imports,
       d.balance,
-      d.type
+      d.balanceType
     ]);
 
     const csv = [
@@ -386,7 +400,7 @@ export default function TradeBalanceModal({ isOpen, onClose }: TradeBalanceModal
               <div className="flex items-center justify-center h-96">
                 <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent"></div>
               </div>
-            ) : data ? (
+            ) : data?.data ? (
               <>
                 {/* Summary Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
@@ -398,7 +412,7 @@ export default function TradeBalanceModal({ isOpen, onClose }: TradeBalanceModal
                       <span className="text-sm font-semibold text-green-700">Avg Balance</span>
                     </div>
                     <div className="text-2xl font-bold text-green-900">
-                      ${data.summary.average_balance.toLocaleString()}M
+                      ${data.data.summary.avgBalance}M
                     </div>
                     <div className="text-xs text-green-600 mt-1">{currency}</div>
                   </div>
@@ -411,10 +425,10 @@ export default function TradeBalanceModal({ isOpen, onClose }: TradeBalanceModal
                       <span className="text-sm font-semibold text-blue-700">Surplus Rate</span>
                     </div>
                     <div className="text-2xl font-bold text-blue-900">
-                      {data.summary.surplus_rate}%
+                      {data.data.summary.surplusRate}%
                     </div>
                     <div className="text-xs text-blue-600 mt-1">
-                      {data.summary.surplus_months}/{data.metadata.total_records} months
+                      {data.data.summary.surplusCount}/{data.data.summary.totalPeriods} months
                     </div>
                   </div>
 
@@ -426,10 +440,10 @@ export default function TradeBalanceModal({ isOpen, onClose }: TradeBalanceModal
                       <span className="text-sm font-semibold text-cyan-700">Best Month</span>
                     </div>
                     <div className="text-2xl font-bold text-cyan-900">
-                      ${data.summary.strongest_month.balance.toLocaleString()}M
+                      ${data.data.summary.bestMonth.balance}M
                     </div>
                     <div className="text-xs text-cyan-600 mt-1">
-                      {data.summary.strongest_month.period}
+                      {data.data.summary.bestMonth.period}
                     </div>
                   </div>
 
@@ -441,10 +455,10 @@ export default function TradeBalanceModal({ isOpen, onClose }: TradeBalanceModal
                       <span className="text-sm font-semibold text-orange-700">Worst Month</span>
                     </div>
                     <div className="text-2xl font-bold text-orange-900">
-                      ${data.summary.weakest_month.balance.toLocaleString()}M
+                      ${data.data.summary.worstMonth.balance}M
                     </div>
                     <div className="text-xs text-orange-600 mt-1">
-                      {data.summary.weakest_month.period}
+                      {data.data.summary.worstMonth.period}
                     </div>
                   </div>
                 </div>
@@ -474,7 +488,7 @@ export default function TradeBalanceModal({ isOpen, onClose }: TradeBalanceModal
                         </tr>
                       </thead>
                       <tbody>
-                        {data.data.map((row, idx) => (
+                        {data.data.balance.map((row, idx) => (
                           <tr 
                             key={row.period}
                             className={`border-b border-slate-200 hover:bg-slate-50 transition-colors ${
@@ -495,11 +509,11 @@ export default function TradeBalanceModal({ isOpen, onClose }: TradeBalanceModal
                             </td>
                             <td className="px-4 py-3 text-center">
                               <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${
-                                row.type === 'surplus'
+                                row.balanceType === 'surplus'
                                   ? 'bg-green-100 text-green-700'
                                   : 'bg-orange-100 text-orange-700'
                               }`}>
-                                {row.type.toUpperCase()}
+                                {row.balanceType.toUpperCase()}
                               </span>
                             </td>
                           </tr>

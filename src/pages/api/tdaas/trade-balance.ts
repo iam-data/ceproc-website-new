@@ -1,269 +1,150 @@
-// /src/pages/api/tdaas/trade-balance.ts
-// REST API endpoint to serve Canada trade balance data from Neon Postgres
-// Fixed for Neon serverless v5+ tagged template syntax
+// API Endpoint: Trade Balance
+// Path: /api/tdaas/trade-balance
+// Purpose: Serve Canada's trade balance data
 
 import type { APIRoute } from 'astro';
 import { neon } from '@neondatabase/serverless';
 
-// Initialize Neon client
-const getDatabaseClient = () => {
-  const connectionString = import.meta.env.DATABASE_URL;
-  
-  if (!connectionString) {
-    throw new Error('DATABASE_URL environment variable is not set');
-  }
-  
-  return neon(connectionString);
-};
-
-// Query trade balance data from database
-async function queryTradeBalance(params: {
-  startDate?: string;
-  endDate?: string;
-  currency?: 'CAD' | 'USD';
-  limit?: number;
-}) {
-  const sql = getDatabaseClient();
-  
-  const { startDate, endDate, limit = 12 } = params;
-  
-  // Build query with Neon's tagged template syntax
-  let result;
-  
-  if (startDate && endDate) {
-    // Query with date range filter
-    result = await sql`
-      SELECT 
-        period,
-        period_date,
-        exports_cad,
-        imports_cad,
-        balance_cad,
-        balance_type,
-        exports_usd,
-        imports_usd,
-        balance_usd,
-        cad_usd_rate,
-        data_source,
-        last_synced_at
-      FROM trade_balance
-      WHERE period_date >= ${startDate}
-        AND period_date <= ${endDate}
-      ORDER BY period_date DESC
-      LIMIT ${limit}
-    `;
-  } else if (startDate) {
-    // Query with start date only
-    result = await sql`
-      SELECT 
-        period,
-        period_date,
-        exports_cad,
-        imports_cad,
-        balance_cad,
-        balance_type,
-        exports_usd,
-        imports_usd,
-        balance_usd,
-        cad_usd_rate,
-        data_source,
-        last_synced_at
-      FROM trade_balance
-      WHERE period_date >= ${startDate}
-      ORDER BY period_date DESC
-      LIMIT ${limit}
-    `;
-  } else if (endDate) {
-    // Query with end date only
-    result = await sql`
-      SELECT 
-        period,
-        period_date,
-        exports_cad,
-        imports_cad,
-        balance_cad,
-        balance_type,
-        exports_usd,
-        imports_usd,
-        balance_usd,
-        cad_usd_rate,
-        data_source,
-        last_synced_at
-      FROM trade_balance
-      WHERE period_date <= ${endDate}
-      ORDER BY period_date DESC
-      LIMIT ${limit}
-    `;
-  } else {
-    // Query without date filters (just limit)
-    result = await sql`
-      SELECT 
-        period,
-        period_date,
-        exports_cad,
-        imports_cad,
-        balance_cad,
-        balance_type,
-        exports_usd,
-        imports_usd,
-        balance_usd,
-        cad_usd_rate,
-        data_source,
-        last_synced_at
-      FROM trade_balance
-      ORDER BY period_date DESC
-      LIMIT ${limit}
-    `;
-  }
-  
-  return result;
-}
+const sql = neon(import.meta.env.DATABASE_URL);
 
 export const GET: APIRoute = async ({ request }) => {
   try {
     const url = new URL(request.url);
     
-    // Parse query parameters
-    const startDate = url.searchParams.get('start_date') || undefined;
-    const endDate = url.searchParams.get('end_date') || undefined;
-    const currency = (url.searchParams.get('currency') || 'CAD').toUpperCase() as 'CAD' | 'USD';
+    // Query parameters
+    const currency = url.searchParams.get('currency') || 'CAD';
     const limit = parseInt(url.searchParams.get('limit') || '12');
-    
+
     // Validate currency
-    if (currency !== 'CAD' && currency !== 'USD') {
-      return new Response(
-        JSON.stringify({
-          success: false,
-          error: 'Invalid currency. Must be CAD or USD.'
-        }),
-        { 
-          status: 400,
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
+    if (!['CAD', 'USD'].includes(currency)) {
+      return new Response(JSON.stringify({ error: 'Invalid currency. Use CAD or USD.' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
-    
+
     // Validate limit
-    if (limit < 1 || limit > 120) {
-      return new Response(
-        JSON.stringify({
-          success: false,
-          error: 'Limit must be between 1 and 120.'
-        }),
-        { 
-          status: 400,
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
+    if (limit < 1 || limit > 60) {
+      return new Response(JSON.stringify({ error: 'Limit must be between 1 and 60' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
+
+    // Fetch balance data - simple query
+    const balanceData = await sql`
+      SELECT 
+        period,
+        period_date,
+        exports_cad,
+        imports_cad,
+        balance_cad,
+        exports_usd,
+        imports_usd,
+        balance_usd,
+        balance_type,
+        exchange_rate,
+        metadata
+      FROM tdaas.trade_balance
+      ORDER BY period_date DESC
+      LIMIT ${limit}
+    `;
+
+    // Calculate summary statistics in JavaScript
+    const currencyField = currency === 'CAD' ? 'balance_cad' : 'balance_usd';
     
-    // Query database
-    const rawData = await queryTradeBalance({
-      startDate,
-      endDate,
-      currency,
-      limit
+    let surplusCount = 0;
+    let deficitCount = 0;
+    let totalBalance = 0;
+    let maxBalance = -Infinity;
+    let minBalance = Infinity;
+    let bestMonth = null;
+    let worstMonth = null;
+
+    balanceData.forEach((row: any) => {
+      const balance = parseFloat(row[currencyField]);
+      totalBalance += balance;
+      
+      if (row.balance_type === 'surplus') surplusCount++;
+      if (row.balance_type === 'deficit') deficitCount++;
+      
+      if (balance > maxBalance) {
+        maxBalance = balance;
+        bestMonth = { period: row.period, balance };
+      }
+      if (balance < minBalance) {
+        minBalance = balance;
+        worstMonth = { period: row.period, balance };
+      }
     });
-    
-    // Transform data based on currency selection
-    const data = rawData.map((row: any) => {
-      const isCad = currency === 'CAD';
-      return {
-        period: row.period,
-        date: row.period_date,
-        exports: isCad ? parseFloat(row.exports_cad) : parseFloat(row.exports_usd || 0),
-        imports: isCad ? parseFloat(row.imports_cad) : parseFloat(row.imports_usd || 0),
-        balance: isCad ? parseFloat(row.balance_cad) : parseFloat(row.balance_usd || 0),
-        type: row.balance_type
-      };
-    });
-    
-    // Calculate summary statistics
-    const totalExports = data.reduce((sum, d) => sum + d.exports, 0);
-    const totalImports = data.reduce((sum, d) => sum + d.imports, 0);
-    const avgBalance = data.length > 0 ? data.reduce((sum, d) => sum + d.balance, 0) / data.length : 0;
-    const surplusMonths = data.filter(d => d.type === 'surplus').length;
-    const deficitMonths = data.filter(d => d.type === 'deficit').length;
-    
-    // Find strongest and weakest months
-    const strongestMonth = data.length > 0 ? data.reduce((max, d) => d.balance > max.balance ? d : max, data[0]) : null;
-    const weakestMonth = data.length > 0 ? data.reduce((min, d) => d.balance < min.balance ? d : min, data[0]) : null;
-    
-    // Build response
+
+    const avgBalance = balanceData.length > 0 ? totalBalance / balanceData.length : 0;
+    const surplusRate = balanceData.length > 0 ? (surplusCount / balanceData.length * 100) : 0;
+
+    // Prepare response based on selected currency
+    const exportField = currency === 'CAD' ? 'exports_cad' : 'exports_usd';
+    const importField = currency === 'CAD' ? 'imports_cad' : 'imports_usd';
+
     const response = {
       success: true,
-      data: data,
+      data: {
+        balance: balanceData.map((row: any) => ({
+          period: row.period,
+          periodDate: row.period_date,
+          exports: parseFloat(row[exportField]),
+          imports: parseFloat(row[importField]),
+          balance: parseFloat(row[currencyField]),
+          balanceType: row.balance_type,
+          exchangeRate: row.exchange_rate ? parseFloat(row.exchange_rate) : null,
+          metadata: row.metadata
+        })),
+        summary: {
+          currency,
+          totalPeriods: balanceData.length,
+          surplusCount,
+          deficitCount,
+          surplusRate: surplusRate.toFixed(2),
+          avgBalance: avgBalance.toFixed(2),
+          bestMonth: bestMonth ? {
+            period: bestMonth.period,
+            balance: bestMonth.balance.toFixed(2)
+          } : null,
+          worstMonth: worstMonth ? {
+            period: worstMonth.period,
+            balance: worstMonth.balance.toFixed(2)
+          } : null
+        }
+      },
       metadata: {
-        total_records: data.length,
-        date_range: {
-          start: data[data.length - 1]?.date || null,
-          end: data[0]?.date || null
-        },
-        currency: currency,
-        unit: 'millions',
         source: 'Statistics Canada',
         table: '12-10-0011-01',
-        seasonally_adjusted: true,
-        last_updated: rawData[0]?.last_synced_at || new Date().toISOString()
-      },
-      summary: {
-        total_exports: parseFloat(totalExports.toFixed(2)),
-        total_imports: parseFloat(totalImports.toFixed(2)),
-        average_balance: parseFloat(avgBalance.toFixed(2)),
-        surplus_months: surplusMonths,
-        deficit_months: deficitMonths,
-        surplus_rate: data.length > 0 ? parseFloat(((surplusMonths / data.length) * 100).toFixed(1)) : 0,
-        strongest_month: strongestMonth ? {
-          period: strongestMonth.period,
-          balance: parseFloat(strongestMonth.balance.toFixed(2))
-        } : null,
-        weakest_month: weakestMonth ? {
-          period: weakestMonth.period,
-          balance: parseFloat(weakestMonth.balance.toFixed(2))
-        } : null
+        description: 'Canada merchandise trade balance (imports, exports, and balance)',
+        lastUpdated: new Date().toISOString(),
+        queryParams: {
+          currency,
+          limit
+        }
       }
     };
-    
-    return new Response(
-      JSON.stringify(response, null, 2),
-      {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json',
-          'Cache-Control': 'public, max-age=3600', // Cache for 1 hour
-          'Access-Control-Allow-Origin': '*', // Enable CORS
-        }
-      }
-    );
-    
-  } catch (error) {
-    console.error('Trade balance API error:', error);
-    
-    return new Response(
-      JSON.stringify({
-        success: false,
-        error: 'Internal server error',
-        message: error instanceof Error ? error.message : 'Unknown error'
-      }),
-      {
-        status: 500,
-        headers: { 
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        }
-      }
-    );
-  }
-};
 
-// OPTIONS handler for CORS preflight
-export const OPTIONS: APIRoute = async () => {
-  return new Response(null, {
-    status: 204,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    }
-  });
+    return new Response(JSON.stringify(response), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'public, max-age=3600'
+      }
+    });
+
+  } catch (error) {
+    console.error('Error fetching trade balance data:', error);
+    
+    return new Response(JSON.stringify({
+      success: false,
+      error: 'Failed to fetch trade balance data',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
 };
